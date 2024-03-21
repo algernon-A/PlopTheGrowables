@@ -1,5 +1,5 @@
 <Publish>
-  <ModId Value="" />
+  <ModId Value="75826" />
   <DisplayName Value="Plop the Growables" />
   <ShortDescription Value="Stops growable buildings being condemned if they're outside the correct (or any) zone." />
   <LongDescription>A very simple mod that disables growable building zone checks.  This means that you can use the game's inbuilt dev tool to plop growable (spawnable) buildings wherever you want and without regards to zoning.
