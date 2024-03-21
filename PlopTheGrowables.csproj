@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Title>Plop the Growables</Title>
+		<AssemblyTitle>$(Title)</AssemblyTitle>
+		<Description>A Cities: Skylines 2 mod.</Description>
+		<Authors>algernon</Authors>
+		<Copyright>Copyright © 2024 algernon (github.com/algernon-A). All rights reserved.</Copyright>
+		<Product>$(Title)</Product>
+		<Version>0.0.1</Version>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<TargetFramework>net472</TargetFramework>
+		<LangVersion>9.0</LangVersion>
+		<Configurations>Debug;Release</Configurations>
+		<PDXAccountDataPath>$(USERPROFILE)\Documents\pdx_account.txt</PDXAccountDataPath>
+		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
+	</PropertyGroup>
+
+	<Import Project="Config/References.csproj" />
+	<Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))/Mod.props" />
+	<Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))/Mod.targets" />
+
+	<ItemGroup>
+		<None Include="$(ModPropsFile)" Link="Properties/Mod.props" />
+		<None Include="$(ModTargetsFile)" Link="Properties/Mod.targets" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="Config/References.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="stylecop.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<Target Name="SetDescription" BeforeTargets="BeforeBuild">
+		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$([System.IO.File]::ReadAllText($(ProjectDir)/Properties/LongDescription.md))" Query="//LongDescription" />
+		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$([System.IO.File]::ReadAllText($(ProjectDir)/Properties/LatestChangelog.md))" Query="//ChangeLog" />
+		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$(Version)" Query="//ModVersion/@Value" />
+	</Target>
+
+	<Target Name="Notice" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<NoticeFiles Include="$(ProjectDir)/NOTICE.txt" />
+		</ItemGroup>
+		<Copy SourceFiles="@(NoticeFiles)" DestinationFolder="$(DeployDir)"  />
+	</Target>
+
+	<Target Name="Cleanup" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<CleanTargets Include="$(DeployDir)/$(ProjectName).xml" />
+			<CleanTargets Include="$(DeployDir)/*.pdb" />
+		</ItemGroup>
+		<Delete Files="@(CleanTargets)" />
+	</Target>
+
+</Project>
