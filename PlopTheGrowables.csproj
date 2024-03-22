@@ -50,7 +50,7 @@
 		<ItemGroup>
 			<NoticeFiles Include="$(ProjectDir)/NOTICE.txt" />
 		</ItemGroup>
-		<Copy SourceFiles="@(NoticeFiles)" DestinationFolder="$(DeployDir)"  />
+		<Copy SourceFiles="@(NoticeFiles)" DestinationFolder="$(DeployDir)" />
 	</Target>
 
 	<Target Name="Cleanup" AfterTargets="AfterBuild">

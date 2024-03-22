@@ -1,5 +1,7 @@
-A very simple mod that disables growable building zone checks.  This means that you can use the game's inbuilt dev tool to plop growable (spawnable) buildings wherever you want and without regards to zoning.
+A very simple mod that disables growable building zone checks.  This means that you can place them anywhere (using the dev UI) - on zoning, off zoning, partially on zoning, on incorrect zoning, wherever - and they won't despawn.
 
-Note that if you place a growable building away from a road and then draw the road to it it won't automatically connect to pipes or power.  Either draw the road first and *then* place the building, or use Quboid's excellent Move It mod to move the building into place.
+This allows the manual placement of growable buildings directly, without needing any workarounds such as making them signature buildings.
+
+Note that buildings will still require road access (including for water/sewerage/electricity) to function properly, but they don't have to be perfectly aligned with the road.
 
 Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Skylines 1.
