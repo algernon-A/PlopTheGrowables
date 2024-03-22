@@ -14,7 +14,7 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <ModVersion Value="0.1" />
   <GameVersion Value="1.*" />
   <Dependency Id="" />
-  <ChangeLog Value="" />
+  <ChangeLog>Update thumbnail.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
   <ExternalLink Type="discord" Url="https://discord.gg/7rTsfUdfTf" />
 </Publish>
