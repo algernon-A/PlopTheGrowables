@@ -7,10 +7,12 @@
 namespace PlopTheGrowables
 {
     using System.Reflection;
+    using Colossal.IO.AssetDatabase;
     using Colossal.Logging;
     using Game;
     using Game.Buildings;
     using Game.Modding;
+    using Game.Simulation;
 
     /// <summary>
     /// The base mod class for instantiation by the game.
@@ -33,6 +35,11 @@ namespace PlopTheGrowables
         internal ILog Log { get; private set; }
 
         /// <summary>
+        /// Gets the mod's active settings configuration.
+        /// </summary>
+        internal ModSettings ActiveSettings { get; private set; }
+
+        /// <summary>
         /// Called by the game when the mod is loaded.
         /// </summary>
         /// <param name="updateSystem">Game update system.</param>
@@ -49,7 +56,24 @@ namespace PlopTheGrowables
 #endif
             Log.Info($"loading {ModName} version {Assembly.GetExecutingAssembly().GetName().Version}");
 
+            // Apply harmony patches.
+            new Patcher("algernon-PlopTheGrowables", Log);
+
+            // Register mod settings to game options UI.
+            ActiveSettings = new (this);
+            ActiveSettings.RegisterInOptionsUI();
+
+            // Load translations.
+            Localization.LoadTranslations(ActiveSettings, Log);
+
+            // Load saved settings.
+            AssetDatabase.global.LoadSettings("PlopTheGrowables", ActiveSettings, new ModSettings(this));
+
+            // Disable game zone check system.
             updateSystem.World.GetOrCreateSystemManaged<ZoneCheckSystem>().Enabled = false;
+
+            // Activate custom levelling system.
+            updateSystem.UpdateAfter<HistoricalLevellingSystem, PropertyRenterSystem>(SystemUpdatePhase.GameSimulation);
         }
 
         /// <summary>
@@ -59,6 +83,9 @@ namespace PlopTheGrowables
         {
             Log.Info("disposing");
             Instance = null;
+
+            // Revert harmony patches.
+            Patcher.Instance?.UnPatchAll();
         }
     }
 }
