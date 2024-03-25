@@ -27,10 +27,10 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <Screenshot Value="Properties/Screenshots/IgnoreZoning.jpg" />
   <Tag Value="" />
   <ForumLink Value="" />
-  <ModVersion Value="0.2" />
+  <ModVersion Value="0.2.0.1" />
   <GameVersion Value="1.1.*" />
   <Dependency Id="" />
-  <ChangeLog>- Add option to disable building levelling.</ChangeLog>
+  <ChangeLog>- Downgrade Harmony to 2.2.2 to keep TDW happy.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
   <ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
   <ExternalLink Type="ko-fi" Url="https://ko-fi.com/algernon" />

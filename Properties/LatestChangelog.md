@@ -1,1 +1,1 @@
-- Add option to disable building levelling.
+- Downgrade Harmony to 2.2.2 to keep TDW happy.
