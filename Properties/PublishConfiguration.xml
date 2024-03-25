@@ -19,7 +19,8 @@ This can be toggled in the mod's options panel (the default is **off**).  When t
 ### Credits
 Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Skylines 1, which inspired the idea of this one.</LongDescription>
   <Thumbnail Value="Properties/Thumbnail.png" />
-  <Screenshot Value="" />
+  <Screenshot Value="Properties/Thumbnail.png" />
+  <Screenshot Value="Properties/Screenshots/IgnoreZoning.jpg" />
   <Tag Value="" />
   <ForumLink Value="" />
   <ModVersion Value="0.2" />
@@ -28,5 +29,5 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <ChangeLog>- Add option to disable building levelling.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
   <ExternalLink Type="discord" Url="https://discord.gg/7rTsfUdfTf" />
-  <ExternalLink Type="kofi" Url="https://ko-fi.com/algernon" />
+  <ExternalLink Type="ko-fi" Url="https://ko-fi.com/algernon" />
 </Publish>
