@@ -2,7 +2,7 @@
   <ModId Value="75826" />
   <DisplayName Value="Plop the Growables" />
   <ShortDescription Value="Stops growable buildings being condemned if they're outside the correct (or any) zone." />
-  <LongDescription>### Plop the Growables
+  <LongDescription>## Plop the Growables
 - **Disables growable building zone checks**
 - Optionally **disable building level changes**
 
@@ -16,6 +16,10 @@ Note that buildings will still require road access (including for water/sewerage
 ### Disable building level changes (optional)
 This can be toggled in the mod's options panel (the default is **off**).  When this is enabled all growable buildings will keep their current level, ensuring that they also keep their appearance.
 
+## Meta
+### Modders
+Modders (and Modders (and aspiring modders!), as always I'm available and happy to chat about what I've done and answer any questions, and also about how you can implement anything that I've done for your own mods. Come grab me on the Cities: Skylines Modding Discord! modders!), as always I'm available and happy to chat about what I've done and answer any questions, an
+
 ### Credits
 Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Skylines 1, which inspired the idea of this one.</LongDescription>
   <Thumbnail Value="Properties/Thumbnail.png" />
@@ -28,6 +32,6 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <Dependency Id="" />
   <ChangeLog>- Add option to disable building levelling.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
-  <ExternalLink Type="discord" Url="https://discord.gg/7rTsfUdfTf" />
+  <ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
   <ExternalLink Type="ko-fi" Url="https://ko-fi.com/algernon" />
 </Publish>
