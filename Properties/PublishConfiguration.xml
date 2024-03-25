@@ -22,7 +22,7 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <Screenshot Value="" />
   <Tag Value="" />
   <ForumLink Value="" />
-  <ModVersion Value="0.1" />
+  <ModVersion Value="0.2" />
   <GameVersion Value="1.1.*" />
   <Dependency Id="" />
   <ChangeLog>- Add option to disable building levelling.</ChangeLog>
