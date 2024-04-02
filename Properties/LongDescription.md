@@ -12,6 +12,9 @@ Note that buildings will still require road access (including for water/sewerage
 ### Disable building level changes (optional)
 This can be toggled in the mod's options panel (the default is **off**).  When this is enabled all growable buildings will keep their current level, ensuring that they also keep their appearance.
 
+## How to select and place growable building
+This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select and place growable buildings (or use the game's developer mode).
+
 ## Meta
 ### Modders
 Modders (and aspiring modders!), as always I'm available and happy to chat about what I've done and answer any questions, and also about how you can implement anything that I've done for your own mods. Come grab me on the Cities: Skylines Modding Discord!
