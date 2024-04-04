@@ -7,7 +7,7 @@
 		<Authors>algernon</Authors>
 		<Copyright>Copyright © 2024 algernon (github.com/algernon-A). All rights reserved.</Copyright>
 		<Product>$(Title)</Product>
-		<Version>0.2.0.1</Version>
+		<Version>0.2.0.99</Version>
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<TargetFramework>net472</TargetFramework>
@@ -44,12 +44,17 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="l10n\en-US.csv" />
+		<EmbeddedResource Include="l10n\zh-HANS.csv" />
 	</ItemGroup>
 
 	<Target Name="SetDescription" BeforeTargets="BeforeBuild">
 		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$([System.IO.File]::ReadAllText($(ProjectDir)/Properties/LongDescription.md))" Query="//LongDescription" />
 		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$([System.IO.File]::ReadAllText($(ProjectDir)/Properties/LatestChangelog.md))" Query="//ChangeLog" />
 		<XmlPoke XmlInputPath="$(PublishConfigurationPath)" Value="$(Version)" Query="//ModVersion/@Value" />
+	</Target>
+
+	<Target Name="InstallUI" AfterTargets="AfterBuild">
+		<Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/UI" />
 	</Target>
 
 	<Target Name="Notice" AfterTargets="AfterBuild">

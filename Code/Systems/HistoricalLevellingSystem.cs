@@ -131,6 +131,7 @@ namespace PlopTheGrowables
             if (_levelupQueue.Count != 0)
             {
                 LevelupJob levelupJob = default;
+                levelupJob.m_LevelLockedData = SystemAPI.GetComponentLookup<LevelLocked>(true);
                 levelupJob.m_EntityType = SystemAPI.GetEntityTypeHandle();
                 levelupJob.m_SpawnableBuildingType = SystemAPI.GetComponentTypeHandle<SpawnableBuildingData>(true);
                 levelupJob.m_BuildingType = SystemAPI.GetComponentTypeHandle<BuildingData>(true);
@@ -169,6 +170,7 @@ namespace PlopTheGrowables
             {
                 {
                     LeveldownJob leveldownJob = default;
+                    leveldownJob.m_LevelLockedData = SystemAPI.GetComponentLookup<LevelLocked>(true);
                     leveldownJob.m_BuildingDatas = __TypeHandle.__Game_Prefabs_BuildingData_RO_ComponentLookup;
                     leveldownJob.m_Prefabs = __TypeHandle.__Game_Prefabs_PrefabRef_RO_ComponentLookup;
                     leveldownJob.m_SpawnableBuildings = SystemAPI.GetComponentLookup<SpawnableBuildingData>(true);
@@ -220,25 +222,46 @@ namespace PlopTheGrowables
         [BurstCompile]
         private struct LevelupJob : IJob
         {
+            [ReadOnly]
+            public ComponentLookup<LevelLocked> m_LevelLockedData;
+            [ReadOnly]
             public EntityTypeHandle m_EntityType;
+            [ReadOnly]
             public ComponentTypeHandle<SpawnableBuildingData> m_SpawnableBuildingType;
+            [ReadOnly]
             public ComponentTypeHandle<BuildingData> m_BuildingType;
+            [ReadOnly]
             public ComponentTypeHandle<BuildingPropertyData> m_BuildingPropertyType;
+            [ReadOnly]
             public ComponentTypeHandle<ObjectGeometryData> m_ObjectGeometryType;
+            [ReadOnly]
             public SharedComponentTypeHandle<BuildingSpawnGroupData> m_BuildingSpawnGroupType;
+            [ReadOnly]
             public ComponentLookup<Game.Objects.Transform> m_TransformData;
+            [ReadOnly]
             public ComponentLookup<Block> m_BlockData;
+            [ReadOnly]
             public ComponentLookup<ValidArea> m_ValidAreaData;
+            [ReadOnly]
             public ComponentLookup<PrefabRef> m_Prefabs;
+            [ReadOnly]
             public ComponentLookup<SpawnableBuildingData> m_SpawnableBuildings;
+            [ReadOnly]
             public ComponentLookup<BuildingData> m_Buildings;
+            [ReadOnly]
             public ComponentLookup<BuildingPropertyData> m_BuildingPropertyDatas;
+            [ReadOnly]
             public ComponentLookup<OfficeBuilding> m_OfficeBuilding;
+            [ReadOnly]
             public ComponentLookup<ZoneData> m_ZoneData;
+            [ReadOnly]
             public BufferLookup<Cell> m_Cells;
             public BuildingConfigurationData m_BuildingConfigurationData;
+            [ReadOnly]
             public NativeList<ArchetypeChunk> m_SpawnableBuildingChunks;
+            [ReadOnly]
             public NativeQuadTree<Entity, Bounds2> m_ZoneSearchTree;
+            [ReadOnly]
             public RandomSeed m_RandomSeed;
             public IconCommandBuffer m_IconCommandBuffer;
             public NativeQueue<Entity> m_LevelupQueue;
@@ -256,6 +279,12 @@ namespace PlopTheGrowables
                 {
                     Entity prefab = m_Prefabs[item].m_Prefab;
                     if (!m_SpawnableBuildings.HasComponent(prefab))
+                    {
+                        continue;
+                    }
+
+                    // Exempt level-locked buildings.
+                    if (m_LevelLockedData.HasComponent(item))
                     {
                         continue;
                     }
@@ -462,20 +491,34 @@ namespace PlopTheGrowables
         [BurstCompile]
         private struct LeveldownJob : IJob
         {
+            [ReadOnly]
+            public ComponentLookup<LevelLocked> m_LevelLockedData;
+            [ReadOnly]
             public ComponentLookup<PrefabRef> m_Prefabs;
+            [ReadOnly]
             public ComponentLookup<SpawnableBuildingData> m_SpawnableBuildings;
+            [ReadOnly]
             public ComponentLookup<BuildingData> m_BuildingDatas;
+            [ReadOnly]
             public ComponentLookup<Building> m_Buildings;
+            [ReadOnly]
             public ComponentLookup<ElectricityConsumer> m_ElectricityConsumers;
+            [ReadOnly]
             public ComponentLookup<WaterConsumer> m_WaterConsumers;
+            [ReadOnly]
             public ComponentLookup<GarbageProducer> m_GarbageProducers;
+            [ReadOnly]
             public ComponentLookup<GroundPolluter> m_GroundPolluters;
+            [ReadOnly]
             public ComponentLookup<MailProducer> m_MailProducers;
+            [ReadOnly]
             public ComponentLookup<BuildingPropertyData> m_BuildingPropertyDatas;
+            [ReadOnly]
             public ComponentLookup<OfficeBuilding> m_OfficeBuilding;
             public NativeQueue<TriggerAction> m_TriggerBuffer;
             public ComponentLookup<CrimeProducer> m_CrimeProducers;
             public BufferLookup<Renter> m_Renters;
+            [ReadOnly]
             public BuildingConfigurationData m_BuildingConfigurationData;
             public NativeQueue<Entity> m_LeveldownQueue;
             public EntityCommandBuffer m_CommandBuffer;
@@ -492,6 +535,12 @@ namespace PlopTheGrowables
                 while (m_LeveldownQueue.TryDequeue(out Entity item))
                 {
                     if (!m_Prefabs.HasComponent(item))
+                    {
+                        continue;
+                    }
+
+                    // Exempt level-locked buildings.
+                    if (m_LevelLockedData.HasComponent(item))
                     {
                         continue;
                     }

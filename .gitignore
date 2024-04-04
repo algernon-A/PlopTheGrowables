@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /Library/
+/UI/.idea/.idea.UI.dir/.idea
+/UI/tools
+/UI/types

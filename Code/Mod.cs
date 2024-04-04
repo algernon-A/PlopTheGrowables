@@ -74,6 +74,9 @@ namespace PlopTheGrowables
 
             // Activate custom levelling system.
             updateSystem.UpdateAfter<HistoricalLevellingSystem, PropertyRenterSystem>(SystemUpdatePhase.GameSimulation);
+
+            // Activate UI system.
+            updateSystem.UpdateAt<PlopTheGrowablesUISystem>(SystemUpdatePhase.UIUpdate);
         }
 
         /// <summary>
