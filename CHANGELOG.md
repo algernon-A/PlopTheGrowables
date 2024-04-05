@@ -1,3 +1,4 @@
+### 0.3
 - Add level locking for individual buildings.
 
 ### 0.2.0.1
