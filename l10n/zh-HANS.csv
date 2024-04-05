@@ -1,3 +1,5 @@
-"Options.SECTION:[algernon.PlopTheGrowables]","自由自长建筑"
-"Options.OPTION:DisableLevelling","禁用建筑等级"
-"Options.OPTION_DESCRIPTION:DisableLevelling","阻止建筑变更等级，保持当前外观，同时防止废弃"
+"Options.SECTION:[algernon.PlopTheGrowables]","可放置自长建筑"
+"Options.OPTION:DisableLevelling","禁止所有建筑改变等级"
+"Options.OPTION_DESCRIPTION:DisableLevelling","阻止所有建筑改变等级，以保持当前外观，同时防止废弃。"
+"PLOPTHEGROWABLES.LockLevel","锁定建筑等级"
+"PLOPTHEGROWABLES_DESCRIPTION.LockLevel","启用此选项后，建筑将不会改变等级，以保持当前外观，同时防止废弃。"

@@ -44,6 +44,9 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="l10n\en-US.csv" />
+		<EmbeddedResource Include="l10n\es-ES.csv" />
+		<EmbeddedResource Include="l10n\fr-FR.csv" />
+		<EmbeddedResource Include="l10n\pt-BR.csv" />
 		<EmbeddedResource Include="l10n\zh-HANS.csv" />
 	</ItemGroup>
 

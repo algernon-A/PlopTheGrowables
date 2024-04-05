@@ -59,6 +59,9 @@ namespace PlopTheGrowables
             // Apply harmony patches.
             new Patcher("algernon-PlopTheGrowables", Log);
 
+            // Activate UI system.
+            updateSystem.UpdateAt<PlopTheGrowablesUISystem>(SystemUpdatePhase.UIUpdate);
+
             // Register mod settings to game options UI.
             ActiveSettings = new (this);
             ActiveSettings.RegisterInOptionsUI();
@@ -74,9 +77,6 @@ namespace PlopTheGrowables
 
             // Activate custom levelling system.
             updateSystem.UpdateAfter<HistoricalLevellingSystem, PropertyRenterSystem>(SystemUpdatePhase.GameSimulation);
-
-            // Activate UI system.
-            updateSystem.UpdateAt<PlopTheGrowablesUISystem>(SystemUpdatePhase.UIUpdate);
         }
 
         /// <summary>

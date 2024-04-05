@@ -1,0 +1,5 @@
+"Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
+"Options.OPTION:DisableLevelling","Desactivar TODOS los cambios de nivel de edificio"
+"Options.OPTION_DESCRIPTION:DisableLevelling","Evita que TODOS los edificios cambien de nivel, por lo tanto mantendrán su apariencia."
+"PLOPTHEGROWABLES.LockLevel","Bloquear nivel de edificio"
+"PLOPTHEGROWABLES_DESCRIPTION.LockLevel","Al activar esta opción, el edificio no cambiará de nivel, por lo tanto, mantendrá su apariencia."

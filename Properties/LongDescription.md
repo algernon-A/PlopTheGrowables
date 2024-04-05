@@ -25,7 +25,7 @@ This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select 
 
 ## Meta
 ### Translations
-This mod supports localization via a [CrowdIn project](https://crowdin.com/project/plop-the-growables).  Please help out if you can!
+This mod supports localization. Please help out with translating this mod into different languages via the CrowdIn site at crowdin.com/project/plop-the-growables.
 
 ### Modders
 Modders (and aspiring modders!), as always I'm available and happy to chat about what I've done and answer any questions, and also about how you can implement anything that I've done for your own mods. Come grab me on the Cities: Skylines Modding Discord!
