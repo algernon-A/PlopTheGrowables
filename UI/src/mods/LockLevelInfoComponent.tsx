@@ -56,7 +56,7 @@ export const LockLevelInfoComponent = (componentList: any): any => {
                 right={
                     <VanillaComponentResolver.instance.ToolButton
                         className={VanillaComponentResolver.instance.toolButtonTheme.button}
-                        src={IsLevelLocked() ? "Media/Glyphs/Lock.svg" : "Media/Tools/Net Tool/Point.svg"}
+                        src={IsLevelLocked() ? "coui://uil/Standard/LockClosed.svg" : "coui://uil/Standard/LockOpen.svg"}
                         tooltip={TitledTooltip("PLOPTHEGROWABLES.LockLevel", "PLOPTHEGROWABLES_DESCRIPTION.LockLevel")}
                         onSelect={lockLevelClick}
                         selected={IsLevelLocked()}
