@@ -1,3 +1,8 @@
+## Historical Start
+A mod for Cities: Skylines 2.  Available for download only on [Paradox Mods](https://mods.paradoxplaza.com/mods/75826/Windows).
+
+The primary platform for support is the [Cities Skylines Modding Discord](https://discord.gg/HTav7ARPs2).
+
 ## Plop the Growables
 - **Disables growable building zone checks**
 - **Disable building level changes for user-selected individual buildings**
