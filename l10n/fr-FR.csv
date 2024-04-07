@@ -1,4 +1,6 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
+"Options.OPTION:LockPloppedBuildings","Verrouiller le niveau du bâtiment dès qu'il est posé"
+"Options.OPTION_DESCRIPTION:LockPloppedBuildings","Applique automatiquement le verrouillage de niveau à n'importe quel bâtiment à plusieurs niveaux qui est placé manuellement (""plopped"") lorsque ce paramètre est actif."
 "Options.OPTION:DisableLevelling","Désactiver les changements de niveau de TOUS les bâtiments"
 "Options.OPTION_DESCRIPTION:DisableLevelling","Empêche TOUS les bâtiments de changer de niveau, donc garder leurs apparences."
 "PLOPTHEGROWABLES.LockLevel","Verrouiller le niveau du bâtiment"

@@ -1,0 +1,7 @@
+"Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
+"Options.OPTION:LockPloppedBuildings","Zablokuj poziom budynku przy umieszczeniu"
+"Options.OPTION_DESCRIPTION:LockPloppedBuildings","Jeśli to ustawienie jest aktywne, to automatycznie zablokuje poziom każdego umieszczonego ręcznie budynku (plopped)."
+"Options.OPTION:DisableLevelling","Wyłącz zmiany poziomu wszystkich budynków"
+"Options.OPTION_DESCRIPTION:DisableLevelling","Zapobiega zmianie poziomu wszystkich budynków, tak aby zachowały aktualny wygląd."
+"PLOPTHEGROWABLES.LockLevel","Zablokuj poziom budynku"
+"PLOPTHEGROWABLES_DESCRIPTION.LockLevel","Jeśli wybrane, to budynek nie zmieni poziomu, przez co zachowa swój aktualny wygląd."
