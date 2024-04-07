@@ -18,8 +18,8 @@ namespace PlopTheGrowables
     public partial class PloppedBuildingSystem : GameSystemBase
     {
         // Component typesets (for adding components).
-        private readonly ComponentTypeSet _ploppedOnly = new(typeof(PloppedBuilding));
-        private readonly ComponentTypeSet _lockedAndPlopped = new(typeof(LevelLocked), typeof(PloppedBuilding));
+        private readonly ComponentTypeSet _ploppedOnly = new (typeof(PloppedBuilding));
+        private readonly ComponentTypeSet _lockedAndPlopped = new (typeof(LevelLocked), typeof(PloppedBuilding));
 
         // References.
         private EntityQuery _emptyQuery;
@@ -63,7 +63,6 @@ namespace PlopTheGrowables
         protected override void OnUpdate()
         {
             // Tag any newly-plopped buildings as plopped, and level-lock them if that setting is set.
-            _log.Info($"Tagging {_emptyQuery.CalculateEntityCount()} plopped buildings.");
             EntityManager.AddComponent(_emptyQuery, LockPloppedBuildings ? _lockedAndPlopped : _ploppedOnly);
         }
     }

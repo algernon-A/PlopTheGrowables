@@ -50,7 +50,8 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <GameVersion Value="1.1.*" />
   <Dependency Id="77240" DisplayName="Find It" />
   <Dependency Id="74417" DisplayName="Unified Icon Library" Version="1.0.1" />
-  <ChangeLog>- Add option to automatically lock the levels of newly plopped buildings.</ChangeLog>
+  <ChangeLog>- Add option to automatically lock the levels of newly plopped buildings.
+- Add workaround for compatibility with Land Value Overhaul mod.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
   <ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
   <ExternalLink Type="ko-fi" Url="https://ko-fi.com/algernon" />

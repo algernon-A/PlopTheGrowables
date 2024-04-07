@@ -9,6 +9,7 @@ namespace PlopTheGrowables
     using System.Reflection;
     using Colossal.Collections;
     using Colossal.Mathematics;
+    using Colossal.Serialization.Entities;
     using Game;
     using Game.Buildings;
     using Game.Common;
@@ -62,6 +63,18 @@ namespace PlopTheGrowables
         public bool DisableLevelling { get; set; } = false;
 
         /// <summary>
+        /// Updates the active level up and level down queues to the provided values.
+        /// </summary>
+        /// <param name="levelUpQueue">Level up queue to set.</param>
+        /// <param name="levelDownQueue">Level down queue to set.</param>
+        internal void SetLevelQueues(NativeQueue<Entity> levelUpQueue, NativeQueue<Entity> levelDownQueue)
+        {
+            Mod.Instance.Log.Info("Updating level queues");
+            _levelupQueue = levelUpQueue;
+            _leveldownQueue = levelDownQueue;
+        }
+
+        /// <summary>
         /// Called when the system is created.
         /// </summary>
         protected override void OnCreate()
@@ -110,6 +123,19 @@ namespace PlopTheGrowables
             {
                 DisableLevelling = activeSettings.DisableLevelling;
             }
+        }
+
+        /// <summary>
+        /// Called when the game is loaded.
+        /// </summary>
+        /// <param name="serializationContext">Serialization context.</param>
+        protected override void OnGameLoaded(Context serializationContext)
+        {
+            Mod.Instance.Log.Info("OnGameLoaded");
+            base.OnGameLoaded(serializationContext);
+
+            // Check and apply workaround Harmony patches to the Land Value Overhaul mod, if present.
+            Patcher.Instance.PatchLandValueOverhaul(World);
         }
 
         /// <summary>

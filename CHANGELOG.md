@@ -1,4 +1,5 @@
 - Add option to automatically lock the levels of newly plopped buildings.
+- Add workaround for compatibility with Land Value Overhaul mod.
 
 ### 0.3
 - Add level locking for individual buildings.
