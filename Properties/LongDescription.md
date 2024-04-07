@@ -17,7 +17,7 @@ This mod adds a 'lock building level' toggle to the building info panel for grow
 Note that builing level-up progress within the current level will still show on the building's level up progress panel, but it will never reach the level required to upgrade to the next level.
 
 ### Lock building levels when plopped (optional)
-Automatically applies level locking to any growable building that is manually placed (plopped) while this setting is active.
+Automatically applies level locking to any growable building that is manually placed (plopped) while this setting is active.  This includes placement via Find It, Line Tool, or the dev mode prefab menu.
 
 ### Disable ALL building level changes (optional)
 This can be toggled in the mod's options panel (the default is **off**).  When this is enabled all growable buildings will keep their current level, ensuring that they also keep their appearance.
