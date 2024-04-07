@@ -17,6 +17,7 @@ namespace PlopTheGrowables
     public class ModSettings : ModSetting
     {
         private bool _disableLevelling = false;
+        private bool _lockPloppedBuildings = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModSettings"/> class.
@@ -25,6 +26,25 @@ namespace PlopTheGrowables
         public ModSettings(IMod mod)
             : base(mod)
         {
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether plopped buildings should be automatically level-locked on placement.
+        /// </summary>
+        public bool LockPloppedBuildings
+        {
+            get => _lockPloppedBuildings;
+
+            set
+            {
+                _lockPloppedBuildings = value;
+
+                // Update system, if it's ready.
+                if (PloppedBuildingSystem.Instance is PloppedBuildingSystem ploppedBuildingSystem)
+                {
+                    ploppedBuildingSystem.LockPloppedBuildings = value;
+                }
+            }
         }
 
         /// <summary>

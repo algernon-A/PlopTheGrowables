@@ -1,1 +1,1 @@
-- Add level locking for individual buildings.
+- Add option to automatically lock the levels of newly plopped buildings.

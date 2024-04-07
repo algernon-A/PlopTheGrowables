@@ -5,7 +5,8 @@ The primary platform for support is the [Cities Skylines Modding Discord](https:
 
 ### Features
 - **Disables growable building zone checks**
-- **Disable building level changes for user-selected individual buildings**
+- Optionally **Disable building level changes for user-selected individual buildings**
+- Optionally **Disable building level changes for manually plopped grwoable buildings**
 - Optionally **disable building level changes for ALL buildings**
 
 ### Disables growable building zone checks
@@ -19,6 +20,9 @@ Note that buildings will still require road access (including for water/sewerage
 This mod adds a 'lock building level' toggle to the building info panel for growable buildings.  Select this toggle to keep that building at the same level.
 
 Note that builing level-up progress within the current level will still show on the building's level up progress panel, but it will never reach the level required to upgrade to the next level.
+
+### Lock building levels when plopped (optional)
+Automatically applies level locking to any growable building that is manually placed (plopped) while this setting is active.
 
 ### Disable ALL building level changes (optional)
 This can be toggled in the mod's options panel (the default is **off**).  When this is enabled all growable buildings will keep their current level, ensuring that they also keep their appearance.
