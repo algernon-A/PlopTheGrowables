@@ -217,6 +217,7 @@ namespace PlopTheGrowables
         /// If no colon delimter is found, the key is returned unchanged.
         ///
         /// Recognised packing prefixes are:
+        ///     Options.GROUP - options menu group labels.
         ///     Options.OPTION - basic options menu control labels.
         ///     Options.OPTION_DESCRIPTION - options menu detailed control descriptions, displayed in the panel to the right of the controls.
         ///     Options.WARNING - options menu warning messaged displayed in pop-up dialogs.
@@ -242,6 +243,7 @@ namespace PlopTheGrowables
             // Unpack key to full game settings key.
             return context switch
             {
+                "Options.GROUP" => settings.GetOptionGroupLocaleID(key),
                 "Options.OPTION" => settings.GetOptionLabelLocaleID(key),
                 "Options.OPTION_DESCRIPTION" => settings.GetOptionDescLocaleID(key),
                 "Options.WARNING" => settings.GetOptionWarningLocaleID(key),
