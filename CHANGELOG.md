@@ -1,3 +1,5 @@
+
+### 0.5
 - Add options panel buttons to lock or unlock all buildings.
 
 ### 0.4

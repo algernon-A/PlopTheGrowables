@@ -50,7 +50,7 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <Screenshot Value="Properties/Screenshots/LockBuilding.jpg" />
   <Tag Value="" />
   <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/plop-the-growables.1644731/" />
-  <ModVersion Value="0.4.99" />
+  <ModVersion Value="0.5" />
   <GameVersion Value="1.1.*" />
   <Dependency Id="77240" DisplayName="Find It" />
   <Dependency Id="74417" DisplayName="Unified Icon Library" Version="1.0.1" />
