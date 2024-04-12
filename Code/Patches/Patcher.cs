@@ -90,7 +90,7 @@ namespace PlopTheGrowables
         }
 
         /// <summary>
-        /// Applies patches to the <c>Land Value Overhaul</c> mmod to work around its disabling of the game's <c>PropertyRenterSystem</c>.
+        /// Applies patches to the <c>Land Value Overhaul</c> mod to work around its disabling of the game's <c>PropertyRenterSystem</c>.
         /// </summary>
         /// <param name="world">Active world instance.</param>
         internal void PatchLandValueOverhaul(World world)
@@ -126,7 +126,7 @@ namespace PlopTheGrowables
                 try
                 {
                     // Apply patches.
-                    Harmony harmonyInstance = new(_harmonyID);
+                    Harmony harmonyInstance = new (_harmonyID);
                     harmonyInstance.Patch(targetMethod, transpiler: new HarmonyMethod(lvoTranspiler));
 
                     // Update level queues.
