@@ -8,7 +8,9 @@ namespace PlopTheGrowables
 {
     using Game;
     using Game.Buildings;
+    using Game.Common;
     using Game.Objects;
+    using Game.Tools;
     using Unity.Entities;
 
     /// <summary>
@@ -26,7 +28,7 @@ namespace PlopTheGrowables
             base.OnCreate();
 
             // Initialise query.
-            _constructionQuery = SystemAPI.QueryBuilder().WithAll<Building, UnderConstruction>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, SpawnedBuilding, PloppedBuilding>().Build();
+            _constructionQuery = SystemAPI.QueryBuilder().WithAll<Building, UnderConstruction>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Temp, Deleted, Signature, SpawnedBuilding, PloppedBuilding>().Build();
             RequireForUpdate(_constructionQuery);
         }
 

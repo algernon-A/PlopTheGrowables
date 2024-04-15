@@ -1,1 +1,1 @@
-- Add options panel buttons to lock or unlock all buildings.
+- Update queries used for differentiating plopped vs. spawned buildings.

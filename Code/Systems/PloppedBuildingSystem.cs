@@ -9,7 +9,9 @@ namespace PlopTheGrowables
     using Colossal.Logging;
     using Game;
     using Game.Buildings;
+    using Game.Common;
     using Game.Objects;
+    using Game.Tools;
     using Unity.Entities;
 
     /// <summary>
@@ -47,7 +49,7 @@ namespace PlopTheGrowables
             _log = Mod.Instance.Log;
 
             // Initialise query.
-            _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, UnderConstruction, SpawnedBuilding, PloppedBuilding>().Build();
+            _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Temp, Deleted, Signature, UnderConstruction, SpawnedBuilding, PloppedBuilding>().Build();
             RequireForUpdate(_emptyQuery);
 
             // Set state from current settings.

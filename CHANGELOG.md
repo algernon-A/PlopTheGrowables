@@ -1,3 +1,5 @@
+### 0.5.1
+- Update queries used for differentiating plopped vs. spawned buildings.
 
 ### 0.5
 - Add options panel buttons to lock or unlock all buildings.
