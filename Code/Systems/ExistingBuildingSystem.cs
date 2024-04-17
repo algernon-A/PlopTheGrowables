@@ -6,8 +6,13 @@
 
 namespace PlopTheGrowables
 {
+    using Colossal.Entities;
     using Game;
     using Game.Buildings;
+    using Game.Common;
+    using Game.Notifications;
+    using Game.Prefabs;
+    using Unity.Collections;
     using Unity.Entities;
 
     /// <summary>
@@ -16,9 +21,12 @@ namespace PlopTheGrowables
     /// </summary>
     public partial class ExistingBuildingSystem : GameSystemBase
     {
+        // Queries.
         private EntityQuery _emptyQuery;
         private EntityQuery _allLockedBuildingsQuery;
         private EntityQuery _allUnlockedBuildingsQuery;
+        private EntityQuery _abandonedBuildingsQuery;
+        private EntityQuery _buildingConfigurationQuery;
 
         /// <summary>
         /// Gets the active instance.
@@ -36,6 +44,57 @@ namespace PlopTheGrowables
         internal void UnlockAllBuildings() => EntityManager.RemoveComponent<LevelLocked>(_allLockedBuildingsQuery);
 
         /// <summary>
+        /// Removes abandonment from all eligible buildings.
+        /// </summary>
+        internal void RemoveAllAbandonment()
+        {
+            // Get references.
+            IconCommandSystem iconCommandSystem = World.GetOrCreateSystemManaged<IconCommandSystem>();
+            IconCommandBuffer iconCommandBuffer = iconCommandSystem.CreateCommandBuffer();
+            BuildingConfigurationData buildingConfigurationData = _buildingConfigurationQuery.GetSingleton<BuildingConfigurationData>();
+            Entity abandonedNotification = buildingConfigurationData.m_AbandonedNotification;
+
+            foreach (Entity entity in _abandonedBuildingsQuery.ToEntityArray(Allocator.Temp))
+            {
+                EntityManager.RemoveComponent<Abandoned>(entity);
+
+                // Take property off market.
+                EntityManager.AddComponent<PropertyToBeOnMarket>(entity);
+                if (EntityManager.HasComponent<PropertyOnMarket>(entity))
+                {
+                    EntityManager.RemoveComponent<PropertyOnMarket>(entity);
+                }
+
+                // Reset building condition.
+                if (EntityManager.HasComponent<BuildingCondition>(entity))
+                {
+                    EntityManager.SetComponentData(entity, new BuildingCondition { m_Condition = 0 });
+                }
+
+                // Reset garbage production (removed when abandoned).
+                EntityManager.AddComponentData(entity, default(GarbageProducer));
+
+                // Reset mail production (removed when abandoned).
+                EntityManager.AddComponentData(entity, default(MailProducer));
+
+                // Reset electricity consumption (removed when abandoned).
+                EntityManager.AddComponentData(entity, default(ElectricityConsumer));
+
+                // Reset water consumption (removed when abandoned).
+                EntityManager.AddComponentData(entity, default(WaterConsumer));
+
+                // Remove abandoned notification.
+                iconCommandBuffer.Remove(entity, abandonedNotification);
+
+                // Update road to refresh utility connections.
+                if (EntityManager.TryGetComponent(entity, out Building building) && building.m_RoadEdge != Entity.Null)
+                {
+                    EntityManager.AddComponent<Updated>(building.m_RoadEdge);
+                }
+            }
+        }
+
+        /// <summary>
         /// Called when the system is created.
         /// </summary>
         protected override void OnCreate()
@@ -47,7 +106,9 @@ namespace PlopTheGrowables
             // Initialise queries.
             _allLockedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building, LevelLocked>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature>().Build();
             _allUnlockedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, LevelLocked>().Build();
+            _abandonedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building, Abandoned>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().Build();
             _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, PloppedBuilding, SpawnedBuilding>().Build();
+            _buildingConfigurationQuery = GetEntityQuery(ComponentType.ReadOnly<BuildingConfigurationData>());
             RequireForUpdate(_emptyQuery);
         }
 

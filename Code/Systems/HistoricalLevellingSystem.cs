@@ -63,6 +63,11 @@ namespace PlopTheGrowables
         public bool DisableLevelling { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a value indicating whether building abandonment should be prevented.
+        /// </summary>
+        public bool DisableAbandonment { get; set; } = false;
+
+        /// <summary>
         /// Updates the active level up and level down queues to the provided values.
         /// </summary>
         /// <param name="levelUpQueue">Level up queue to set.</param>
@@ -122,6 +127,7 @@ namespace PlopTheGrowables
             if (Mod.Instance.ActiveSettings is ModSettings activeSettings)
             {
                 DisableLevelling = activeSettings.DisableLevelling;
+                DisableAbandonment = activeSettings.NoAbandonment;
             }
         }
 
@@ -196,6 +202,7 @@ namespace PlopTheGrowables
             {
                 {
                     LeveldownJob leveldownJob = default;
+                    leveldownJob.m_DisableAbandonment = DisableAbandonment;
                     leveldownJob.m_LevelLockedData = SystemAPI.GetComponentLookup<LevelLocked>(true);
                     leveldownJob.m_BuildingDatas = __TypeHandle.__Game_Prefabs_BuildingData_RO_ComponentLookup;
                     leveldownJob.m_Prefabs = __TypeHandle.__Game_Prefabs_PrefabRef_RO_ComponentLookup;
@@ -518,6 +525,8 @@ namespace PlopTheGrowables
         private struct LeveldownJob : IJob
         {
             [ReadOnly]
+            public bool m_DisableAbandonment;
+            [ReadOnly]
             public ComponentLookup<LevelLocked> m_LevelLockedData;
             [ReadOnly]
             public ComponentLookup<PrefabRef> m_Prefabs;
@@ -565,9 +574,11 @@ namespace PlopTheGrowables
                         continue;
                     }
 
-                    // Exempt level-locked buildings.
-                    if (m_LevelLockedData.HasComponent(item))
+                    // Exempt level-locked buildings, or any buildings if abandonment is disabled.
+                    if (m_DisableAbandonment || m_LevelLockedData.HasComponent(item))
                     {
+                        m_CommandBuffer.RemoveComponent<PropertyOnMarket>(item);
+                        m_CommandBuffer.AddComponent<PropertyToBeOnMarket>(item);
                         continue;
                     }
 
@@ -577,8 +588,6 @@ namespace PlopTheGrowables
                         continue;
                     }
 
-                    _ = m_SpawnableBuildings[prefab];
-                    _ = m_BuildingDatas[prefab];
                     BuildingPropertyData buildingPropertyData = m_BuildingPropertyDatas[prefab];
                     m_CommandBuffer.AddComponent(item, new Abandoned
                     {

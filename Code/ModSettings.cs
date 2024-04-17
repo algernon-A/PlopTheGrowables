@@ -28,6 +28,7 @@ namespace PlopTheGrowables
 
         // Backing fields.
         private bool _disableLevelling = false;
+        private bool _disableAbandonment = false;
         private bool _lockPloppedBuildings = false;
 
         /// <summary>
@@ -59,13 +60,25 @@ namespace PlopTheGrowables
             }
         }
 
-        /*
         /// <summary>
         /// Gets or sets a value indicating whether building abandonment should be disabled.
         /// </summary>
         [SettingsUISection(Locking)]
-        public bool NoAbandonment { get; set; }
-        */
+        public bool NoAbandonment
+        {
+            get => _disableAbandonment;
+
+            set
+            {
+                _disableAbandonment = value;
+
+                // Update system, if it's ready.
+                if (HistoricalLevellingSystem.Instance is HistoricalLevellingSystem historicalLevellingSystem)
+                {
+                    historicalLevellingSystem.DisableAbandonment = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether building levelling should be disabled.
@@ -118,7 +131,6 @@ namespace PlopTheGrowables
             }
         }
 
-        /*
         /// <summary>
         /// Sets a value indicating whether all eligible buildings should have abandonment cleared.
         /// </summary>
@@ -129,10 +141,10 @@ namespace PlopTheGrowables
         public bool RemoveAllAbandonment
          {
              set
-             {
-             }
+            {
+                ExistingBuildingSystem.Instance?.RemoveAllAbandonment();
+            }
         }
-        */
 
         /// <summary>
         /// Gets or sets a value indicating whether, well, nothing really.

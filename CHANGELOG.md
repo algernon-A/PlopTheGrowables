@@ -1,3 +1,6 @@
+- Add option to prevent abandonment for all buildings.
+- Add options panel button to remove abandonment from existing buildings.
+
 ### 0.5.1
 - Update queries used for differentiating plopped vs. spawned buildings.
 

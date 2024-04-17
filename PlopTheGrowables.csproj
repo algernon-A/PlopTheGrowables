@@ -7,7 +7,7 @@
 		<Authors>algernon</Authors>
 		<Copyright>Copyright © 2024 algernon (github.com/algernon-A). All rights reserved.</Copyright>
 		<Product>$(Title)</Product>
-		<Version>0.5.1</Version>
+		<Version>0.5.99</Version>
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<TargetFramework>net472</TargetFramework>
