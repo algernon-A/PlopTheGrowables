@@ -22,15 +22,27 @@ This mod adds a 'lock building level' toggle to the building info panel for grow
 Note that building level-up progress within the current level will still show on the building's level up progress panel, but it will never reach the level required to upgrade to the next level.
 
 ### Lock building levels when plopped (optional)
-Automatically applies level locking to any growable building that is manually placed (plopped) while this setting is active.  This includes placement via Find It, Line Tool, or the dev mode prefab menu.
+Automatically applies level locking to any growable building that is manually placed (plopped) while this setting is active.  This includes placement via Find It, Line Tool, or the dev mode prefab menu.  Buildings with their levels locked also won't become abandoned (but people can and will still move out - see the notes below under disable building abandonment).
 
 ### Disable ALL building level changes (optional)
 This can be toggled in the mod's options panel (the default is **off**).  When this is enabled all growable buildings will keep their current level, ensuring that they also keep their appearance.
 
 Note that building level-up progress within the current level will still show on the building's level up progress panel, but it will never reach the level required to upgrade to the next level.
 
+### Disable building abandonment (optional)
+This prevents buildings from being flagged as 'abandoned'.
+
+**Note:** this does **NOT** prevent people from actually moving out, so the building will still become empty (it just won't get "abandoned" status; the building will remain in place, ready for somebody else to move in).   Nor does this remove the underlying issue that caused the occupants to move out in the first place.
+
+Buildings are open for re-occupancy, but depending on what caused the original occupants to leave it may take a long period (sometimes a *very* long period of time) of time before people move back in.
+
 ### Toggle level locking for all existing buildings
 This is available via the buttons in the options panel to either **lock** or **unlock** levels for all buildings currently on the map.  These are only enabled when you're in-game (as otherwise there's no buildings to toggle).
+
+### Remove abandonment for all existing buildings
+This is available via the button in the options panel for all buildings currently on the map.  This is only enabled when you're in-game (as otherwise there's no buildings to toggle).
+
+Note that this just removes the building's 'abandoned' status and does not force people to move back in, and nor does it remove the underlying issue that caused the building to become abandoned in the first place.  Buildings are open for re-occupancy, but depending on what caused the original occupants to leave it may take a long period (sometimes a *very* long period of time) of time before people move back in.
 
 ## How to select and place growable buildings
 This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select and place growable buildings (or use the game's developer mode).
