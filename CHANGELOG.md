@@ -1,3 +1,4 @@
+### 0.6
 - Add option to prevent abandonment for all buildings.
 - Add options panel button to remove abandonment from existing buildings.
 
