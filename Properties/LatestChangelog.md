@@ -1,2 +1,1 @@
-- Add option to prevent abandonment for all buildings.
-- Add options panel button to remove abandonment from existing buildings.ueries used for differentiating plopped vs. spawned buildings.
+- Update translations.
