@@ -1,3 +1,6 @@
+### 0.6.2
+- Update translations.
+
 ### 0.6.1
 - Update translations.
 
