@@ -1,1 +1,1 @@
-- Update translations.
+- Compatibility with game version 1.1.5.

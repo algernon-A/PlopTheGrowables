@@ -102,7 +102,7 @@ namespace PlopTheGrowables
             RequireForUpdate(_buildingSettingsQuery);
 
             // Reflect level up queue.
-            FieldInfo m_LevelupQueueField = AccessTools.Field(typeof(PropertyRenterSystem), "m_LevelupQueue");
+            FieldInfo m_LevelupQueueField = AccessTools.Field(typeof(BuildingUpkeepSystem), "m_LevelupQueue");
             if (m_LevelupQueueField is null)
             {
                 Mod.Instance.Log.Error("Unable to get LevelupQueue FieldInfo");
@@ -110,10 +110,10 @@ namespace PlopTheGrowables
                 return;
             }
 
-            _levelupQueue = (NativeQueue<Entity>)m_LevelupQueueField.GetValue(World.GetOrCreateSystemManaged<PropertyRenterSystem>());
+            _levelupQueue = (NativeQueue<Entity>)m_LevelupQueueField.GetValue(World.GetOrCreateSystemManaged<BuildingUpkeepSystem>());
 
             // Reflect level down queue.
-            FieldInfo m_LeveldownQueueField = AccessTools.Field(typeof(PropertyRenterSystem), "m_LeveldownQueue");
+            FieldInfo m_LeveldownQueueField = AccessTools.Field(typeof(BuildingUpkeepSystem), "m_LeveldownQueue");
             if (m_LeveldownQueueField is null)
             {
                 Mod.Instance.Log.Error("Unable to get LeveldownQueue FieldInfo");
@@ -121,7 +121,7 @@ namespace PlopTheGrowables
                 return;
             }
 
-            _leveldownQueue = (NativeQueue<Entity>)m_LeveldownQueueField.GetValue(World.GetOrCreateSystemManaged<PropertyRenterSystem>());
+            _leveldownQueue = (NativeQueue<Entity>)m_LeveldownQueueField.GetValue(World.GetOrCreateSystemManaged<BuildingUpkeepSystem>());
 
             // Set state from current settings.
             if (Mod.Instance.ActiveSettings is ModSettings activeSettings)
@@ -129,19 +129,6 @@ namespace PlopTheGrowables
                 DisableLevelling = activeSettings.DisableLevelling;
                 DisableAbandonment = activeSettings.NoAbandonment;
             }
-        }
-
-        /// <summary>
-        /// Called when the game is loaded.
-        /// </summary>
-        /// <param name="serializationContext">Serialization context.</param>
-        protected override void OnGameLoaded(Context serializationContext)
-        {
-            Mod.Instance.Log.Info("OnGameLoaded");
-            base.OnGameLoaded(serializationContext);
-
-            // Check and apply workaround Harmony patches to the Land Value Overhaul mod, if present.
-            Patcher.Instance.PatchLandValueOverhaul(World);
         }
 
         /// <summary>
@@ -210,7 +197,6 @@ namespace PlopTheGrowables
                     leveldownJob.m_Buildings = SystemAPI.GetComponentLookup<Building>(false);
                     leveldownJob.m_ElectricityConsumers = SystemAPI.GetComponentLookup<ElectricityConsumer>(true);
                     leveldownJob.m_GarbageProducers = SystemAPI.GetComponentLookup<GarbageProducer>(true);
-                    leveldownJob.m_GroundPolluters = SystemAPI.GetComponentLookup<GroundPolluter>(true);
                     leveldownJob.m_MailProducers = SystemAPI.GetComponentLookup<MailProducer>(true);
                     leveldownJob.m_WaterConsumers = SystemAPI.GetComponentLookup<WaterConsumer>(true);
                     leveldownJob.m_BuildingPropertyDatas = __TypeHandle.__Game_Prefabs_BuildingPropertyData_RO_ComponentLookup;
@@ -327,7 +313,7 @@ namespace PlopTheGrowables
                     BuildingPropertyData buildingPropertyData = m_BuildingPropertyDatas[prefab];
                     ZoneData zoneData = m_ZoneData[spawnableBuildingData.m_ZonePrefab];
                     float maxHeight = GetMaxHeight(item, prefabBuildingData);
-                    Entity entity = SelectSpawnableBuilding(zoneData.m_ZoneType, spawnableBuildingData.m_Level + 1, prefabBuildingData.m_LotSize, maxHeight, prefabBuildingData.m_Flags & (Game.Prefabs.BuildingFlags.LeftAccess | Game.Prefabs.BuildingFlags.RightAccess), buildingPropertyData, ref random);
+                    Entity entity = SelectSpawnableBuilding(zoneData.m_ZoneType, spawnableBuildingData.m_Level + 1, prefabBuildingData.m_LotSize, maxHeight, prefabBuildingData.m_Flags & (BuildingFlags.LeftAccess | BuildingFlags.RightAccess), buildingPropertyData, ref random);
 
                     if (entity == Entity.Null)
                     {
@@ -543,8 +529,6 @@ namespace PlopTheGrowables
             [ReadOnly]
             public ComponentLookup<GarbageProducer> m_GarbageProducers;
             [ReadOnly]
-            public ComponentLookup<GroundPolluter> m_GroundPolluters;
-            [ReadOnly]
             public ComponentLookup<MailProducer> m_MailProducers;
             [ReadOnly]
             public ComponentLookup<BuildingPropertyData> m_BuildingPropertyDatas;
@@ -620,11 +604,6 @@ namespace PlopTheGrowables
                         m_CommandBuffer.RemoveComponent<GarbageProducer>(item);
                     }
 
-                    if (m_GroundPolluters.HasComponent(item))
-                    {
-                        m_CommandBuffer.RemoveComponent<GroundPolluter>(item);
-                    }
-
                     if (m_MailProducers.HasComponent(item))
                     {
                         m_CommandBuffer.RemoveComponent<MailProducer>(item);
@@ -636,7 +615,7 @@ namespace PlopTheGrowables
                         m_CommandBuffer.SetComponent(item, new CrimeProducer
                         {
                             m_Crime = crimeProducer.m_Crime * 2f,
-                            m_PatrolRequest = crimeProducer.m_PatrolRequest,
+                            m_PatrolRequest = crimeProducer.m_PatrolRequest
                         });
                     }
 

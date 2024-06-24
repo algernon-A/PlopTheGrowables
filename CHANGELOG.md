@@ -1,3 +1,6 @@
+### 0.7
+- Compatibility with game version 1.1.5.
+
 ### 0.6.2
 - Update translations.
 
