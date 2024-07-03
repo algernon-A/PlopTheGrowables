@@ -91,6 +91,13 @@ namespace PlopTheGrowables
             Log.Info("disposing");
             Instance = null;
 
+            // Clear settings menu entry.
+            if (ActiveSettings != null)
+            {
+                ActiveSettings.UnregisterInOptionsUI();
+                ActiveSettings = null;
+            }
+
             // Revert harmony patches.
             Patcher.Instance?.UnPatchAll();
         }

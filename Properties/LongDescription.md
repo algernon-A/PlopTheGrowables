@@ -45,7 +45,7 @@ This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select 
 
 ## Meta
 ### Translations
-This mod supports localization. Please help out with translating this mod into different languages via the CrowdIn site at crowdin.com/project/plop-the-growables.
+This mod supports localization. Please help out with translating this mod into different languages via the CrowdIn site (link on right)!
 
 ### Credits
 This mod uses the Harmony patching library by Andreas Pardeike.

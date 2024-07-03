@@ -561,8 +561,6 @@ namespace PlopTheGrowables
                     // Exempt level-locked buildings, or any buildings if abandonment is disabled.
                     if (m_DisableAbandonment || m_LevelLockedData.HasComponent(item))
                     {
-                        m_CommandBuffer.RemoveComponent<PropertyOnMarket>(item);
-                        m_CommandBuffer.AddComponent<PropertyToBeOnMarket>(item);
                         continue;
                     }
 
