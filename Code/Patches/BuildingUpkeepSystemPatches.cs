@@ -10,6 +10,7 @@ namespace PlopTheGrowables
     using System.Collections.Generic;
     using System.Reflection;
     using System.Reflection.Emit;
+    using Colossal.Logging;
     using Game.Simulation;
     using HarmonyLib;
     using Unity.Entities;
@@ -30,7 +31,8 @@ namespace PlopTheGrowables
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> OnUpdateTranspiler(IEnumerable<CodeInstruction> instructions, MethodBase original)
         {
-            Patcher.Instance.Log.Info($"Transpiling {original.DeclaringType}:{original.Name}");
+            ILog log = Patcher.Instance.Log;
+            log.Info($"Transpiling {original.DeclaringType}:{original.Name}");
 
             // Levelup and Leveldown job types and local indices.
             int levelUpJobIndex = int.MaxValue;
@@ -39,18 +41,25 @@ namespace PlopTheGrowables
             Type levelDownJobType = Type.GetType("Game.Simulation.BuildingUpkeepSystem+LeveldownJob,Game", true);
             MethodInfo dependencySetter = AccessTools.PropertySetter(typeof(SystemBase), "Dependency");
 
-            // Get local indices.
-            foreach (LocalVariableInfo localVarInfo in original.GetMethodBody().LocalVariables)
+            if (dependencySetter is null)
             {
-                if (localVarInfo.LocalType == levelUpJobType)
+                log.Error("unable to reflect SystemBase.Dependency setter; aborting transpiler");
+            }
+            else
+            {
+                // Get local indices.
+                foreach (LocalVariableInfo localVarInfo in original.GetMethodBody().LocalVariables)
                 {
-                    levelUpJobIndex = localVarInfo.LocalIndex;
-                    Patcher.Instance.Log.Debug($"Found level up index {levelUpJobIndex}");
-                }
-                else if (localVarInfo.LocalType == levelDownJobType)
-                {
-                    levelDownJobIndex = localVarInfo.LocalIndex;
-                    Patcher.Instance.Log.Debug($"Found level down index {levelDownJobIndex}");
+                    if (localVarInfo.LocalType == levelUpJobType)
+                    {
+                        levelUpJobIndex = localVarInfo.LocalIndex;
+                        log.Debug($"Found level up index {levelUpJobIndex}");
+                    }
+                    else if (localVarInfo.LocalType == levelDownJobType)
+                    {
+                        levelDownJobIndex = localVarInfo.LocalIndex;
+                        log.Debug($"Found level down index {levelDownJobIndex}");
+                    }
                 }
             }
 
@@ -60,11 +69,11 @@ namespace PlopTheGrowables
             {
                 CodeInstruction instruction = instructionEnumerator.Current;
 
-                if (instruction.operand is LocalBuilder localBuilder)
+                if (dependencySetter is not null && instruction.operand is LocalBuilder localBuilder)
                 {
                     if (localBuilder.LocalIndex == levelUpJobIndex || localBuilder.LocalIndex == levelDownJobIndex)
                     {
-                        Mod.Instance.Log.Debug($"Skipping local {localBuilder.LocalIndex} from {instruction.opcode} {instruction.operand}");
+                        log.Debug($"Skipping local {localBuilder.LocalIndex} from {instruction.opcode} {instruction.operand}");
 
                         // Skip forward until we find the Dependency setter, indicating the end of the job creation block.
                         while (!instruction.Calls(dependencySetter))
@@ -74,7 +83,7 @@ namespace PlopTheGrowables
                         }
 
                         // Skip current instruction (the dependency setter).
-                        Mod.Instance.Log.Debug($"resuming after {instruction.opcode} {instruction.operand}");
+                        log.Debug($"resuming after {instruction.opcode} {instruction.operand}");
                         continue;
                     }
                 }
