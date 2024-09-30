@@ -16,12 +16,13 @@ namespace PlopTheGrowables
     /// The mod's settings.
     /// </summary>
     [FileLocation(Mod.ModName)]
-    [SettingsUIShowGroupName(Locking, ApplyToExisting, DisableAll)]
-    [SettingsUITabOrder(Locking, ApplyToExisting, DisableAll)]
-    [SettingsUIGroupOrder(Locking, ApplyToExisting, DisableAll)]
+    [SettingsUIShowGroupName(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
+    [SettingsUITabOrder(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
+    [SettingsUIGroupOrder(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
     public class ModSettings : ModSetting
     {
         // String constants for categories.
+        private const string SpawnedBuildings = "SpawnedBuildings";
         private const string Locking = "Locking";
         private const string ApplyToExisting = "ApplyToExisting";
         private const string DisableAll = "DisableAll";
@@ -30,6 +31,7 @@ namespace PlopTheGrowables
         private bool _disableLevelling = false;
         private bool _disableAbandonment = false;
         private bool _lockPloppedBuildings = false;
+        private bool _spawnedZoneDespawn = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModSettings"/> class.
@@ -38,6 +40,26 @@ namespace PlopTheGrowables
         public ModSettings(IMod mod)
             : base(mod)
         {
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether spawned buildings should be affected by underlying zoning changes (e.g. de-spawn when the zoning is removed).
+        /// </summary>
+        [SettingsUISection(SpawnedBuildings)]
+        public bool SpawnedZoneDespawn
+        {
+            get => _spawnedZoneDespawn;
+
+            set
+            {
+                _spawnedZoneDespawn = value;
+
+                // Update system, if it's ready.
+                if (SelectiveZoneCheckSystem.Instance is SelectiveZoneCheckSystem selectiveZoneCheckSystem)
+                {
+                    selectiveZoneCheckSystem.SpawnedZoneDespawn = value;
+                }
+            }
         }
 
         /// <summary>
@@ -92,9 +114,6 @@ namespace PlopTheGrowables
             {
                 _disableLevelling = value;
 
-                // Assign contra value to ensure that JSON contains at least one non-default value.
-                Contra = value;
-
                 // Update system, if it's ready.
                 if (HistoricalLevellingSystem.Instance is HistoricalLevellingSystem historicalLevellingSystem)
                 {
@@ -145,14 +164,6 @@ namespace PlopTheGrowables
                 ExistingBuildingSystem.Instance?.RemoveAllAbandonment();
             }
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether, well, nothing really.
-        /// This is just the inverse of <see cref="DisableLevelling"/>, to ensure the the JSON contains at least one non-default value.
-        /// This is to workaround a bug where the settings file isn't overwritten when there are no non-default settings.
-        /// </summary>
-        [SettingsUIHidden]
-        public bool Contra { get; set; } = true;
 
         /// <summary>
         /// Restores mod settings to default.

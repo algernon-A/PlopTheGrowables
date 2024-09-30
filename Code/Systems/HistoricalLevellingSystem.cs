@@ -9,7 +9,6 @@ namespace PlopTheGrowables
     using System.Reflection;
     using Colossal.Collections;
     using Colossal.Mathematics;
-    using Colossal.Serialization.Entities;
     using Game;
     using Game.Buildings;
     using Game.Common;
@@ -613,7 +612,7 @@ namespace PlopTheGrowables
                         m_CommandBuffer.SetComponent(item, new CrimeProducer
                         {
                             m_Crime = crimeProducer.m_Crime * 2f,
-                            m_PatrolRequest = crimeProducer.m_PatrolRequest
+                            m_PatrolRequest = crimeProducer.m_PatrolRequest,
                         });
                     }
 

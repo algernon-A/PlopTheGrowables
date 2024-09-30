@@ -78,9 +78,13 @@ namespace PlopTheGrowables
             // Activate custom levelling system.
             updateSystem.UpdateAfter<HistoricalLevellingSystem, PropertyRenterSystem>(SystemUpdatePhase.GameSimulation);
 
+            // Activate tagging systems.
             updateSystem.UpdateAfter<ExistingBuildingSystem>(SystemUpdatePhase.Deserialize);
             updateSystem.UpdateAfter<SpawnedBuildingSystem, BuildingConstructionSystem>(SystemUpdatePhase.GameSimulation);
             updateSystem.UpdateAt<PloppedBuildingSystem>(SystemUpdatePhase.ModificationEnd);
+
+            // Activate custom zone check system; must run after we've assigned ploppable flags.
+            updateSystem.UpdateAfter<SelectiveZoneCheckSystem, PloppedBuildingSystem>(SystemUpdatePhase.ModificationEnd);
         }
 
         /// <summary>
