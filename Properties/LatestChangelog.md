@@ -1,1 +1,1 @@
-- Compatibility with game version 1.1.6.
+- Add option for spawned buildings to respond to underlying zoning changes.
