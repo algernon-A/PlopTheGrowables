@@ -1,3 +1,4 @@
+### 0.8
 - Add option for spawned buildings to respond to underlying zoning changes.
 
 ### 0.7.1
