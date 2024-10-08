@@ -4,18 +4,22 @@ A mod for Cities: Skylines 2.  Available for download only on [Paradox Mods](htt
 The primary platform for support is the [Cities Skylines Modding Discord](https://discord.gg/HTav7ARPs2).
 
 ### Features
-- **Disables growable building zone checks** - you can place growable buildings anywhere, and they won't despawn (be condemned) if the zoning underneath them is changed.
+- **Disables growable building zone checks** - you can place growable buildings anywhere, and they won't despawn (be condemned) if the zoning underneath them is changed or removed.
+- Optionally **Still require correct zoning for non-plopped buildings** - so any naturally spawned growables will be condemned if the zoning underneath them is changed or removed.
 - Optionally **Disable building level changes for user-selected individual buildings**
 - Optionally **Disable building level changes for manually plopped growable buildings**
 - Optionally **disable building level changes for ALL buildings**
 - Toggle level-locking (on/off) for all existing buildings
 
-### Disables growable building zone checks
+### Disables growable building zone checksW
 This means that you can place them anywhere (using the dev UI) - on zoning, off zoning, partially on zoning, on incorrect zoning, wherever - and they won't despawn.
 
 This allows the manual placement of growable buildings directly, without needing any workarounds such as making them signature buildings.
 
 Note that buildings will still require road access (including for water/sewerage/electricity) to function properly, but they don't have to be perfectly aligned with the road.
+
+### Require zoning for naturally spawned (non-plopped) growables
+This is an option that can be enabled in the mod's options panel.  When this is enabled then any growable buildings that weren't plopped will still require the correct zoning; if this option is enabled and the zoning underneath a spawned building is changed or removed then that building will become condemed and be demolished (as it would normally without this mod).
 
 ### Disable level changes for individual buildings
 This mod adds a 'lock building level' toggle to the building info panel for growable buildings.  Select this toggle to keep that building at the same level.
@@ -44,6 +48,9 @@ This is available via the buttons in the options panel to either **lock** or **u
 This is available via the button in the options panel for all buildings currently on the map.  This is only enabled when you're in-game (as otherwise there's no buildings to toggle).
 
 Note that this just removes the building's 'abandoned' status and does not force people to move back in, and nor does it remove the underlying issue that caused the building to become abandoned in the first place.  Buildings are open for re-occupancy, but depending on what caused the original occupants to leave it may take a long period (sometimes a *very* long period of time) of time before people move back in.
+
+## How to select and place growable buildings
+This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select and place growable buildings (or use the game's developer mode).
 
 ## Meta
 ### Translations

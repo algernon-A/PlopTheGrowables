@@ -3,7 +3,8 @@
   <DisplayName Value="Plop the Growables" />
   <ShortDescription Value="Stops growable buildings being condemned if they're outside the correct (or any) zone." />
   <LongDescription>## Plop the Growables
-- **Disables growable building zone checks** - you can place growable buildings anywhere, and they won't despawn (be condemned) if the zoning underneath them is changed.
+- **Disables growable building zone checks** - you can place growable buildings anywhere, and they won't despawn (be condemned) if the zoning underneath them is changed or removed.
+- Optionally **Still require correct zoning for non-plopped buildings** - so any naturally spawned growables will be condemned if the zoning underneath them is changed or removed.
 - Optionally **Disable building level changes for user-selected individual buildings**
 - Optionally **Disable building level changes for manually plopped growable buildings**
 - Optionally **disable building level changes for ALL buildings**
@@ -15,6 +16,9 @@ This means that you can place them anywhere (using the dev UI) - on zoning, off 
 This allows the manual placement of growable buildings directly, without needing any workarounds such as making them signature buildings.
 
 Note that buildings will still require road access (including for water/sewerage/electricity) to function properly, but they don't have to be perfectly aligned with the road.
+
+### Require zoning for naturally spawned (non-plopped) growables
+This is an option that can be enabled in the mod's options panel.  When this is enabled then any growable buildings that weren't plopped will still require the correct zoning; if this option is enabled and the zoning underneath a spawned building is changed or removed then that building will become condemed and be demolished (as it would normally without this mod).
 
 ### Disable level changes for individual buildings
 This mod adds a 'lock building level' toggle to the building info panel for growable buildings.  Select this toggle to keep that building at the same level.
