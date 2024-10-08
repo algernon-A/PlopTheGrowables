@@ -1,4 +1,7 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
+"Options.GROUP:SpawnedBuildings","Budynki nieumieszczone przez gracza"
+"Options.OPTION:SpawnedZoneDespawn","Budynki nieumieszczone przez gracza wymagają stref"
+"Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","Jeśli wybrane, budynki nieumieszczone przez gracza (naturalnie wygenerowane) będą wymagać stref do normalnego funkcjonowania. Jeżeli strefy zostaną usunięte lub zmienione, wszystkie nieumieszczone przez gracza budynki zostaną przeznaczone do rozbiórki."
 "Options.GROUP:Locking","Blokowanie poziomu"
 "Options.OPTION:LockPloppedBuildings","Zablokuj poziom budynku przy umieszczeniu"
 "Options.OPTION_DESCRIPTION:LockPloppedBuildings","Jeśli to ustawienie jest aktywne, to automatycznie zablokuje poziom każdego umieszczonego ręcznie budynku (plopped)."

@@ -1,4 +1,7 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","手動放置可成長建築"
+"Options.GROUP:SpawnedBuildings","Non-plopped buildings"
+"Options.OPTION:SpawnedZoneDespawn","Non-plopped buildings require zoning"
+"Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","If this is selected then non-plopped (naturally spawned) growable buildings will still require normal zoning.  If this zoning is removed or changed then any affected non-plopped buildings will become condemned for demolition."
 "Options.GROUP:Locking","鎖定等級"
 "Options.OPTION:LockPloppedBuildings","放置可成長建築時，鎖定該建築等級"
 "Options.OPTION_DESCRIPTION:LockPloppedBuildings","開啟此選項，手動放置可成長建築時，即自動鎖定建築等級以防止廢棄。"

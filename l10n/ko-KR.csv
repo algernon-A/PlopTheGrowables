@@ -1,4 +1,7 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","성장 가능한 배치 건물(Plop the Growables)"
+"Options.GROUP:SpawnedBuildings","Non-plopped buildings"
+"Options.OPTION:SpawnedZoneDespawn","Non-plopped buildings require zoning"
+"Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","If this is selected then non-plopped (naturally spawned) growable buildings will still require normal zoning.  If this zoning is removed or changed then any affected non-plopped buildings will become condemned for demolition."
 "Options.GROUP:Locking","레벨 제한"
 "Options.OPTION:LockPloppedBuildings","배치한 건물 레벨 잠금"
 "Options.OPTION_DESCRIPTION:LockPloppedBuildings","이 설정이 활성화되면 수동으로 배치(플롭)된 성장 가능한 건물에 레벨 잠금을 자동으로 적용합니다."

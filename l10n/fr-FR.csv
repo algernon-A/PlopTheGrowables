@@ -1,4 +1,7 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
+"Options.GROUP:SpawnedBuildings","Non-plopped buildings"
+"Options.OPTION:SpawnedZoneDespawn","Non-plopped buildings require zoning"
+"Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","If this is selected then non-plopped (naturally spawned) growable buildings will still require normal zoning.  If this zoning is removed or changed then any affected non-plopped buildings will become condemned for demolition."
 "Options.GROUP:Locking","Verrouillage du niveau"
 "Options.OPTION:LockPloppedBuildings","Verrouiller le niveau du bâtiment dès qu'il est posé"
 "Options.OPTION_DESCRIPTION:LockPloppedBuildings","Applique automatiquement le verrouillage de niveau à n'importe quel bâtiment à plusieurs niveaux qui est placé manuellement (""plopped"") lorsque ce paramètre est actif."

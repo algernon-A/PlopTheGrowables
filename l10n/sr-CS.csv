@@ -1,4 +1,7 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","Postavi rastuće zgrade"
+"Options.GROUP:SpawnedBuildings","Non-plopped buildings"
+"Options.OPTION:SpawnedZoneDespawn","Non-plopped buildings require zoning"
+"Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","If this is selected then non-plopped (naturally spawned) growable buildings will still require normal zoning.  If this zoning is removed or changed then any affected non-plopped buildings will become condemned for demolition."
 "Options.GROUP:Locking","Zaključavanje nivoa"
 "Options.OPTION:LockPloppedBuildings","Zaključati nivoe zgrade kada je postavljena"
 "Options.OPTION_DESCRIPTION:LockPloppedBuildings","Automatski primeni zaključavanje nivoa bilo koje rastuće zgrade koja je ručno postavljena dok je ova postavka aktivna."
