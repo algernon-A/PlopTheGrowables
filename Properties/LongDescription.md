@@ -1,8 +1,8 @@
 ## Plop the Growables
 - **Disables growable building zone checks** - you can place growable buildings anywhere, and they won't despawn (be condemned) if the zoning underneath them is changed or removed.
-- Optionally **Still require correct zoning for non-plopped buildings** - so any naturally spawned growables will be condemned if the zoning underneath them is changed or removed.
-- Optionally **Disable building level changes for user-selected individual buildings**
-- Optionally **Disable building level changes for manually plopped growable buildings**
+- Optionally **still require correct zoning for non-plopped buildings** - so any naturally spawned growables will be condemned if the zoning underneath them is changed or removed.
+- Optionally **disable building level changes for user-selected individual buildings**
+- Optionally **disable building level changes for manually plopped growable buildings**
 - Optionally **disable building level changes for ALL buildings**
 - Toggle level-locking (on/off) for all existing buildings
 
