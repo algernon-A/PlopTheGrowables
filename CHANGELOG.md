@@ -1,3 +1,6 @@
+### 0.8.1
+- Update UI libraries.
+
 ### 0.8
 - Add option for spawned buildings to respond to underlying zoning changes.
 
