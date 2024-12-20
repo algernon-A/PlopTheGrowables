@@ -1,3 +1,6 @@
+### 0.8.1.1
+- Update translations.
+
 ### 0.8.1
 - Update UI libraries.
 

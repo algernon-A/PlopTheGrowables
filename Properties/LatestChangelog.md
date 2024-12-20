@@ -1,1 +1,1 @@
-- Update UI libraries.
+- Update translations.

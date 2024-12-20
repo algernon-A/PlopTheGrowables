@@ -70,11 +70,11 @@ Thanks to TPB, the creator of the original Plop the Growables mod for Cities: Sk
   <Screenshot Value="Properties/Screenshots/OptionsPanel.jpg" />
   <Tag Value="" />
   <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/plop-the-growables.1644731/" />
-  <ModVersion Value="0.8.1" />
+  <ModVersion Value="0.8.1.1" />
   <GameVersion Value="1.2.*" />
   <Dependency Id="77240" DisplayName="Find It" />
   <Dependency Id="74417" DisplayName="Unified Icon Library" Version="1.0.1" />
-  <ChangeLog>- Update UI libraries.</ChangeLog>
+  <ChangeLog>- Update translations.</ChangeLog>
   <ExternalLink Type="github" Url="https://github.com/algernon-A/PlopTheGrowables" />
   <ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
   <ExternalLink Type="crowdin" Url="https://crowdin.com/project/plop-the-growables" />
