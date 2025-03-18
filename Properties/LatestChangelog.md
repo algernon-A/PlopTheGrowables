@@ -1,1 +1,1 @@
-- Update translations.
+- Update UI dependency versions to match game version 1.2.5.

@@ -1,3 +1,6 @@
+### 0.8.2
+- Update UI dependency versions to match game version 1.2.5.
+
 ### 0.8.1.1
 - Update translations.
 
