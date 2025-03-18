@@ -1,4 +1,4 @@
-"Options.SECTION:[algernon.PlopTheGrowables]","手動放置可成長建築"
+"Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
 "Options.GROUP:SpawnedBuildings","非手動放置建築"
 "Options.OPTION:SpawnedZoneDespawn","非手動放置建築需要劃定區域"
 "Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","如果選擇此項，則非手動放置 (自然生長) 可成長建築仍然需要劃定區域。如果該區域被移除或更改，則任何受影響的非手動放置建築將被判定為拆除。"
