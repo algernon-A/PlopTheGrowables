@@ -49,7 +49,7 @@ namespace PlopTheGrowables
             _log = Mod.Instance.Log;
 
             // Initialise query.
-            _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Temp, Deleted, Signature, UnderConstruction, SpawnedBuilding, PloppedBuilding>().Build();
+            _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Temp, Deleted, Signature, UnderConstruction, SpawnedBuilding, PloppedBuilding, ExtractorProperty>().Build();
             RequireForUpdate(_emptyQuery);
 
             // Set state from current settings.
