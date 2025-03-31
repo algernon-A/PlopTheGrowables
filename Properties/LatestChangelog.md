@@ -1,1 +1,1 @@
-- Update UI dependency versions to match game version 1.2.5.
+- Add check to exclude extractor buildings from being classified as ploppable.
