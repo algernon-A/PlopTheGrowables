@@ -110,6 +110,7 @@ namespace PlopTheGrowables
                 checkBuildingZonesJob.m_TransformData = SystemAPI.GetComponentLookup<Transform>(true);
                 checkBuildingZonesJob.m_AttachedData = SystemAPI.GetComponentLookup<Attached>(true);
                 checkBuildingZonesJob.m_PrefabRefData = SystemAPI.GetComponentLookup<PrefabRef>(true);
+                checkBuildingZonesJob.m_PrefabData = SystemAPI.GetComponentLookup<PrefabData>(true);
                 checkBuildingZonesJob.m_PrefabBuildingData = SystemAPI.GetComponentLookup<BuildingData>(true);
                 checkBuildingZonesJob.m_PrefabSpawnableBuildingData = SystemAPI.GetComponentLookup<SpawnableBuildingData>(true);
                 checkBuildingZonesJob.m_PrefabPlaceholderBuildingData = SystemAPI.GetComponentLookup<PlaceholderBuildingData>(true);
@@ -311,6 +312,8 @@ namespace PlopTheGrowables
             [ReadOnly]
             public ComponentLookup<PrefabRef> m_PrefabRefData;
             [ReadOnly]
+            public ComponentLookup<PrefabData> m_PrefabData;
+            [ReadOnly]
             public ComponentLookup<BuildingData> m_PrefabBuildingData;
             [ReadOnly]
             public ComponentLookup<SpawnableBuildingData> m_PrefabSpawnableBuildingData;
@@ -412,25 +415,24 @@ namespace PlopTheGrowables
             private bool ValidateZoneBlocks(Entity building, BuildingData prefabBuildingData, SpawnableBuildingData prefabSpawnableBuildingData)
             {
                 Transform transform = m_TransformData[building];
-                ZoneData zoneData = default(ZoneData);
-                if (m_PrefabZoneData.HasComponent(prefabSpawnableBuildingData.m_ZonePrefab))
+                if (m_PrefabZoneData.TryGetComponent(prefabSpawnableBuildingData.m_ZonePrefab, out var componentData) && !componentData.m_ZoneType.Equals(ZoneType.None) && !m_PrefabData.IsComponentEnabled(prefabSpawnableBuildingData.m_ZonePrefab))
                 {
-                    zoneData = m_PrefabZoneData[prefabSpawnableBuildingData.m_ZonePrefab];
+                    return false;
                 }
 
                 float2 xz = math.rotate(transform.m_Rotation, new float3(8f, 0f, 0f)).xz;
                 float2 xz2 = math.rotate(transform.m_Rotation, new float3(0f, 0f, 8f)).xz;
-                float2 @float = xz * (((float)prefabBuildingData.m_LotSize.x * 0.5f) - 0.5f);
-                float2 float2 = xz2 * (((float)prefabBuildingData.m_LotSize.y * 0.5f) - 0.5f);
+                float2 @float = xz * ((prefabBuildingData.m_LotSize.x * 0.5f) - 0.5f);
+                float2 float2 = xz2 * ((prefabBuildingData.m_LotSize.y * 0.5f) - 0.5f);
                 float2 float3 = math.abs(float2) + math.abs(@float);
-                NativeArray<bool> validated = new NativeArray<bool>(prefabBuildingData.m_LotSize.x * prefabBuildingData.m_LotSize.y, Allocator.Temp);
-                Iterator iterator = default(Iterator);
+                NativeArray<bool> validated = new (prefabBuildingData.m_LotSize.x * prefabBuildingData.m_LotSize.y, Allocator.Temp);
+                Iterator iterator = default;
                 iterator.m_Bounds = new Bounds2(transform.m_Position.xz - float3, transform.m_Position.xz + float3);
                 iterator.m_LotSize = prefabBuildingData.m_LotSize;
                 iterator.m_StartPosition = transform.m_Position.xz + float2 + @float;
                 iterator.m_Right = xz;
                 iterator.m_Forward = xz2;
-                iterator.m_ZoneType = zoneData.m_ZoneType;
+                iterator.m_ZoneType = componentData.m_ZoneType;
                 iterator.m_Validated = validated;
                 iterator.m_BlockData = m_BlockData;
                 iterator.m_ValidAreaData = m_ValidAreaData;
@@ -517,7 +519,7 @@ namespace PlopTheGrowables
                                     if ((cell.m_State & (CellFlags.Roadside | CellFlags.RoadLeft | CellFlags.RoadRight | CellFlags.RoadBack)) != 0)
                                     {
                                         CellFlags roadDirection = ZoneUtils.GetRoadDirection(target, block2, cell.m_State);
-                                        int4 x = math.select(b: new int4(512, 4, 1024, 2048), a: 0, c: new bool4(coordinates == 0, coordinates == m_LotSize - 1));
+                                        int4 x = math.select(trueValue: new int4(512, 4, 1024, 2048), falseValue: 0, test: new bool4(coordinates == 0, coordinates == m_LotSize - 1));
                                         m_Directions |= (CellFlags)((uint)roadDirection & (uint)(ushort)math.csum(x));
                                     }
                                 }

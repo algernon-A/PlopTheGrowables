@@ -1,3 +1,6 @@
+### 0.8.4
+- Compatibility with game version 1.3.3.
+
 ### 0.8.3
 - Add check to exclude extractor buildings from being classified as ploppable.
 

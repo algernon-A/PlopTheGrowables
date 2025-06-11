@@ -5,12 +5,12 @@
 		<AssemblyTitle>$(Title)</AssemblyTitle>
 		<Description>A Cities: Skylines 2 mod.</Description>
 		<Authors>algernon</Authors>
-		<Copyright>Copyright © 2024 algernon (github.com/algernon-A). All rights reserved.</Copyright>
+		<Copyright>Copyright © 2024-25 algernon (github.com/algernon-A). All rights reserved.</Copyright>
 		<Product>$(Title)</Product>
-		<Version>0.8.3</Version>
+		<Version>0.8.4</Version>
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<TargetFramework>net472</TargetFramework>
+		<TargetFramework>net48</TargetFramework>
 		<LangVersion>9.0</LangVersion>
 		<Configurations>Debug;Release</Configurations>
 		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
