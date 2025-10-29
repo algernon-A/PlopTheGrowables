@@ -75,8 +75,8 @@ namespace PlopTheGrowables
             // Disable game zone check system.
             updateSystem.World.GetOrCreateSystemManaged<ZoneCheckSystem>().Enabled = false;
 
-            // Activate custom levelling system.
-            updateSystem.UpdateAfter<HistoricalLevellingSystem, PropertyRenterSystem>(SystemUpdatePhase.GameSimulation);
+            // Activate custom levelling system, running immediately after the system where levelling is normally handled.
+            updateSystem.UpdateAfter<HistoricalLevellingSystem, BuildingUpkeepSystem>(SystemUpdatePhase.GameSimulation);
 
             // Activate tagging systems.
             updateSystem.UpdateAfter<ExistingBuildingSystem>(SystemUpdatePhase.Deserialize);

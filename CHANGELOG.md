@@ -1,3 +1,6 @@
+### 0.8.5
+- Compatibility with game version 1.3.6.
+
 ### 0.8.4
 - Compatibility with game version 1.3.3.
 

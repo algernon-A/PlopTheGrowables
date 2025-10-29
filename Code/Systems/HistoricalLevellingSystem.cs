@@ -160,6 +160,7 @@ namespace PlopTheGrowables
                 levelupJob.m_BlockData = SystemAPI.GetComponentLookup<Block>(true);
                 levelupJob.m_ValidAreaData = SystemAPI.GetComponentLookup<ValidArea>(true);
                 levelupJob.m_Prefabs = SystemAPI.GetComponentLookup<PrefabRef>(true);
+                levelupJob.m_PrefabDatas = SystemAPI.GetComponentLookup<PrefabData>(true);
                 levelupJob.m_SpawnableBuildings = SystemAPI.GetComponentLookup<SpawnableBuildingData>(true);
                 levelupJob.m_Buildings = SystemAPI.GetComponentLookup<BuildingData>(true);
                 levelupJob.m_BuildingPropertyDatas = SystemAPI.GetComponentLookup<BuildingPropertyData>(true);
@@ -263,6 +264,8 @@ namespace PlopTheGrowables
             [ReadOnly]
             public ComponentLookup<PrefabRef> m_Prefabs;
             [ReadOnly]
+            public ComponentLookup<PrefabData> m_PrefabDatas;
+            [ReadOnly]
             public ComponentLookup<SpawnableBuildingData> m_SpawnableBuildings;
             [ReadOnly]
             public ComponentLookup<BuildingData> m_Buildings;
@@ -308,6 +311,11 @@ namespace PlopTheGrowables
                     }
 
                     SpawnableBuildingData spawnableBuildingData = m_SpawnableBuildings[prefab];
+                    if (!m_PrefabDatas.IsComponentEnabled(spawnableBuildingData.m_ZonePrefab))
+                    {
+                        continue;
+                    }
+
                     BuildingData prefabBuildingData = m_Buildings[prefab];
                     BuildingPropertyData buildingPropertyData = m_BuildingPropertyDatas[prefab];
                     ZoneData zoneData = m_ZoneData[spawnableBuildingData.m_ZonePrefab];
@@ -626,7 +634,7 @@ namespace PlopTheGrowables
                         }
                     }
 
-                    if ((m_Buildings[item].m_Flags & Game.Buildings.BuildingFlags.HighRentWarning) != 0)
+                    if ((m_Buildings[item].m_Flags & Game.Buildings.BuildingFlags.HighRentWarning) != Game.Buildings.BuildingFlags.None)
                     {
                         Building value = m_Buildings[item];
                         m_IconCommandBuffer.Remove(item, m_BuildingConfigurationData.m_HighRentNotification);

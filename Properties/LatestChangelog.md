@@ -1,1 +1,1 @@
-- Compatibility with game version 1.3.3.
+- Compatibility with game version 1.3.6.

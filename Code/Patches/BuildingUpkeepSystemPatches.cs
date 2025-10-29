@@ -23,6 +23,7 @@ namespace PlopTheGrowables
     {
         /// <summary>
         /// Harmony transpiler for <c>PropertyRenterSystem.OnUpdate</c> to override game levelling.
+        /// This removes the native levlling jobs from the system update so that our custom jobs can be used instead.
         /// </summary>
         /// <param name="instructions">Original ILCode.</param>
         /// <param name="original">Method being patched.</param>
