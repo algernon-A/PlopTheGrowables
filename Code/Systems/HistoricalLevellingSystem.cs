@@ -238,7 +238,7 @@ namespace PlopTheGrowables
         /// Job to level up buildings.
         /// Derived from game code.
         /// </summary>
-        [BurstCompile]
+        //[BurstCompile]
         private struct LevelupJob : IJob
         {
             [ReadOnly]
@@ -514,7 +514,7 @@ namespace PlopTheGrowables
         /// Job to level down buildings.
         /// Derived from game code.
         /// </summary>
-        [BurstCompile]
+        //[BurstCompile]
         private struct LeveldownJob : IJob
         {
             [ReadOnly]

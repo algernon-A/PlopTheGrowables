@@ -1,1 +1,1 @@
-- Compatibility with game version 1.3.6.
+- Temporarily disable burst compilation of building levelling code as potential workaround for crashes with some old saves in 1.4.2.

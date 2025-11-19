@@ -1,3 +1,6 @@
+### 0.8.5.1
+- Temporarily disable burst compilation of building levelling code as potential workaround for crashes with some old saves in 1.4.2.
+
 ### 0.8.5
 - Compatibility with game version 1.3.6.
 
