@@ -1,3 +1,7 @@
+### 0.8.6
+- Update UI dependency versions to match game version 1.5.2.
+- Re-enable burst compilation of building levelling code for game version 1.5.2.
+
 ### 0.8.5.1
 - Temporarily disable burst compilation of building levelling code as potential workaround for crashes with some old saves in 1.4.2.
 

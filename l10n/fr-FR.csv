@@ -1,5 +1,5 @@
 "Options.SECTION:[algernon.PlopTheGrowables]","Plop the Growables"
-"Options.GROUP:SpawnedBuildings","Bâtiment non posé"
+"Options.GROUP:SpawnedBuildings","Bâtiments non posés"
 "Options.OPTION:SpawnedZoneDespawn","Le bâtiment non posé nécessite un zonage"
 "Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","Si cette option est sélectionnée, les bâtiments ne pouvant pas être posé qui n'ont pas été construits (naturellement) devront toujours faire l'objet d'un zonage normal.  Si ce zonage est supprimé ou modifié, tous les bâtiments non posés concernés seront condamnés à la démolition."
 "Options.GROUP:Locking","Verrouillage du niveau"
