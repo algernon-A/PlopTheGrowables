@@ -53,11 +53,15 @@ Note that this just removes the building's 'abandoned' status and does not force
 This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select and place growable buildings (or use the game's developer mode).
 
 ## Meta
+### Known mod conflicts
+[Realistic Workplaces and Households](https://mods.paradoxplaza.com/mods/87755/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+
 ### Translations
 This mod supports localization via a [CrowdIn project](https://crowdin.com/project/plop-the-growables).  Please help out if you can!
 
 ### Credits
 This mod uses the [Harmony patching library](https://github.com/pardeike/Harmony) by Andreas Pardeike.
+
 ### Modders
 Modders (and aspiring modders!), as always I'm available and happy to chat about what I've done and answer any questions, and also about how you can implement anything that I've done for your own mods.  Come grab me on the [Cities Skylines Modding Discord](https://discord.gg/HTav7ARPs2)!
 

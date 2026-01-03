@@ -52,6 +52,9 @@ Note that this just removes the building's 'abandoned' status and does not force
 This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select and place growable buildings (or use the game's developer mode).
 
 ## Meta
+### Known mod conflicts
+[Realistic Workplaces and Households](https://mods.paradoxplaza.com/mods/87755/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+
 ### Translations
 This mod supports localization. Please help out with translating this mod into different languages via the CrowdIn site (link on right)!
 
