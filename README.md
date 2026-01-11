@@ -54,7 +54,8 @@ This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select 
 
 ## Meta
 ### Known mod conflicts
-[Realistic Workplaces and Households](https://mods.paradoxplaza.com/mods/87755/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+- [Realistic Workplaces and Households](https://mods.paradoxplaza.com/mods/87755/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+- [Urban Inequality](https://mods.paradoxplaza.com/mods/110245/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
 
 ### Translations
 This mod supports localization via a [CrowdIn project](https://crowdin.com/project/plop-the-growables).  Please help out if you can!
