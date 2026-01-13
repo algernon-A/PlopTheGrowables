@@ -49,8 +49,10 @@ This mod doesn't have its own UI - instead, use TDW's **Find It** mod to select 
 
 ## Meta
 ### Known mod conflicts
-- [**Realistic Workplaces and Households**](https://mods.paradoxplaza.com/mods/87755/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
-- [**Urban Inequality**](https://mods.paradoxplaza.com/mods/110245/Windows) is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+- **Urban Inequality** is not compatible with this mod, as it replaces the same game system that this mod needs to modify.
+
+### Former mod conflicts
+- **Realistic Workplaces and Households** used to be incompatible with this mod, but this has been resolved with the latest update to that mod.
 
 ### Translations
 This mod supports localization. Please help out with translating this mod into different languages via the CrowdIn site (link on right)!

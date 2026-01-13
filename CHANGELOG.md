@@ -1,3 +1,4 @@
+### 0.8.7
 - Add levelling system household check toggle for compatibility with Realistic Workplaces and Households mod.
 
 ### 0.8.6

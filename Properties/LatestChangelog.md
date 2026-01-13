@@ -1,2 +1,1 @@
-- Update UI dependency versions to match game version 1.5.2.
-- Re-enable burst compilation of building levelling code for game version 1.5.2.
+- Add levelling system household check toggle for compatibility with Realistic Workplaces and Households mod.
