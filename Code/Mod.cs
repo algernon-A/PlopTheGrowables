@@ -12,6 +12,7 @@ namespace PlopTheGrowables
     using Game;
     using Game.Buildings;
     using Game.Modding;
+    using Game.SceneFlow;
     using Game.Simulation;
 
     /// <summary>
@@ -85,6 +86,16 @@ namespace PlopTheGrowables
 
             // Activate custom zone check system; must run after we've assigned ploppable flags.
             updateSystem.UpdateAfter<SelectiveZoneCheckSystem, PloppedBuildingSystem>(SystemUpdatePhase.ModificationEnd);
+
+            // Check for Realistic Workplaces and Households mod.
+            foreach (ModManager.ModInfo modInfo in GameManager.instance.modManager)
+            {
+                if (modInfo.asset.name.Equals("RWH"))
+                {
+                    Log.Info("Found Realistic Workplaces and Housholds mod; deactivating game workplace check in building level up job.");
+                    updateSystem.World.GetOrCreateSystemManaged<HistoricalLevellingSystem>().IgnoreHouseholdCount = true;
+                }
+            }
         }
 
         /// <summary>

@@ -67,6 +67,13 @@ namespace PlopTheGrowables
         public bool DisableAbandonment { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a value indicating whether the game level-up household check should be disabled.
+        /// This check prevents a residential building levelling up to a building with higher household capacity than the current building.
+        /// Disabling this check is required for campatibility with mods that alter household counts, such as 'Realistic Workplaces and Households'.
+        /// </summary>
+        public bool IgnoreHouseholdCount { get; set; } = false;
+
+        /// <summary>
         /// Updates the active level up and level down queues to the provided values.
         /// </summary>
         /// <param name="levelUpQueue">Level up queue to set.</param>
@@ -149,6 +156,7 @@ namespace PlopTheGrowables
             if (_levelupQueue.Count != 0)
             {
                 LevelupJob levelupJob = default;
+                levelupJob.m_IgnoreHouseholdCount = IgnoreHouseholdCount;
                 levelupJob.m_LevelLockedData = SystemAPI.GetComponentLookup<LevelLocked>(true);
                 levelupJob.m_EntityType = SystemAPI.GetEntityTypeHandle();
                 levelupJob.m_SpawnableBuildingType = SystemAPI.GetComponentTypeHandle<SpawnableBuildingData>(true);
@@ -241,6 +249,8 @@ namespace PlopTheGrowables
         [BurstCompile]
         private struct LevelupJob : IJob
         {
+            [ReadOnly]
+            public bool m_IgnoreHouseholdCount;
             [ReadOnly]
             public ComponentLookup<LevelLocked> m_LevelLockedData;
             [ReadOnly]
@@ -401,7 +411,18 @@ namespace PlopTheGrowables
                         BuildingData buildingData = nativeArray3[j];
                         BuildingPropertyData buildingPropertyData2 = nativeArray4[j];
                         ObjectGeometryData objectGeometryData = nativeArray5[j];
-                        if (level == spawnableBuildingData.m_Level && lotSize.Equals(buildingData.m_LotSize) && objectGeometryData.m_Size.y <= maxHeight && (buildingData.m_Flags & (BuildingFlags.LeftAccess | BuildingFlags.RightAccess)) == accessFlags && buildingPropertyData.m_ResidentialProperties <= buildingPropertyData2.m_ResidentialProperties && buildingPropertyData.m_AllowedManufactured == buildingPropertyData2.m_AllowedManufactured && buildingPropertyData.m_AllowedSold == buildingPropertyData2.m_AllowedSold && buildingPropertyData.m_AllowedStored == buildingPropertyData2.m_AllowedStored)
+
+                        // Added toogle (m_IgnoreHouseholdCount) to check for buildingPropertyData.m_ResidentialProperties <= buildingPropertyData2.m_ResidentialProperties from here.
+                        // This is to permit buildings to level up with more households than the previous building if the toggle is set, specifically making it compatible
+                        // with the 'Realistic Households and Workplaces' mod.
+                        if (level == spawnableBuildingData.m_Level
+                            && lotSize.Equals(buildingData.m_LotSize)
+                            && objectGeometryData.m_Size.y <= maxHeight
+                            && (buildingData.m_Flags & (BuildingFlags.LeftAccess | BuildingFlags.RightAccess)) == accessFlags
+                            && (m_IgnoreHouseholdCount || (buildingPropertyData.m_ResidentialProperties <= buildingPropertyData2.m_ResidentialProperties))
+                            && buildingPropertyData.m_AllowedManufactured == buildingPropertyData2.m_AllowedManufactured
+                            && buildingPropertyData.m_AllowedSold == buildingPropertyData2.m_AllowedSold
+                            && buildingPropertyData.m_AllowedStored == buildingPropertyData2.m_AllowedStored)
                         {
                             int num2 = 100;
                             num += num2;
