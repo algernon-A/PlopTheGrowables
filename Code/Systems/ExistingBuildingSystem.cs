@@ -22,10 +22,10 @@ namespace PlopTheGrowables
     public partial class ExistingBuildingSystem : GameSystemBase
     {
         // Queries.
-        private EntityQuery _emptyQuery;
-        private EntityQuery _allLockedBuildingsQuery;
-        private EntityQuery _allUnlockedBuildingsQuery;
+        private EntityQuery _allBuildingsQuery;
         private EntityQuery _abandonedBuildingsQuery;
+        private EntityQuery _untaggedQuery;
+        private EntityQuery _levelLockedQuery;
         private EntityQuery _buildingConfigurationQuery;
 
         /// <summary>
@@ -36,12 +36,24 @@ namespace PlopTheGrowables
         /// <summary>
         /// Applies level-locking to all eligible buildings.
         /// </summary>
-        internal void LockAllBuildings() => EntityManager.AddComponent<LevelLocked>(_allUnlockedBuildingsQuery);
+        internal void LockAllBuildings()
+        {
+            foreach (Entity entity in _allBuildingsQuery.ToEntityArray(Allocator.Temp))
+            {
+                MakeHistorical(entity);
+            }
+        }
 
         /// <summary>
         /// Removes level-locking from all eligible buildings.
         /// </summary>
-        internal void UnlockAllBuildings() => EntityManager.RemoveComponent<LevelLocked>(_allLockedBuildingsQuery);
+        internal void UnlockAllBuildings()
+        {
+            foreach (Entity entity in _allBuildingsQuery.ToEntityArray(Allocator.Temp))
+            {
+                RemoveHistorical(entity);
+            }
+        }
 
         /// <summary>
         /// Removes abandonment from all eligible buildings.
@@ -104,12 +116,13 @@ namespace PlopTheGrowables
             base.OnCreate();
 
             // Initialise queries.
-            _allLockedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building, LevelLocked>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature>().Build();
-            _allUnlockedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, LevelLocked>().Build();
+            _allBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature>().Build();
             _abandonedBuildingsQuery = SystemAPI.QueryBuilder().WithAll<Building, Abandoned>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().Build();
-            _emptyQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, PloppedBuilding, SpawnedBuilding>().Build();
+            _untaggedQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, PloppedBuilding, SpawnedBuilding>().Build();
+            _levelLockedQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithAll<LevelLocked>().Build();
             _buildingConfigurationQuery = GetEntityQuery(ComponentType.ReadOnly<BuildingConfigurationData>());
-            RequireForUpdate(_emptyQuery);
+
+            RequireAnyForUpdate(_untaggedQuery, _levelLockedQuery);
         }
 
         /// <summary>
@@ -117,9 +130,28 @@ namespace PlopTheGrowables
         /// </summary>
         protected override void OnUpdate()
         {
-            // Set any existing uncategorised buildings as spawned.
-            Mod.Instance.Log.Info($"Setting {_emptyQuery.CalculateEntityCount()} existing buildings as spawned.");
-            EntityManager.AddComponent<SpawnedBuilding>(_emptyQuery);
+            // Add 'spawned' tag to any buildings that don't have any existing plopped or spawned tag.
+            if (!_untaggedQuery.IsEmpty)
+            {
+                Mod.Instance.Log.Info($"Found {_untaggedQuery.CalculateEntityCount()} existing buildings without a category.");
+
+                // Set any existing uncategorised buildings as spawned.
+                Mod.Instance.Log.Info($"Setting {_untaggedQuery.CalculateEntityCount()} existing buildings as spawned.");
+                EntityManager.AddComponent<SpawnedBuilding>(_untaggedQuery);
+            }
+
+            // Convert any existing buildings with the level-locked tag to use the game's historical flag instead.
+            if (!_levelLockedQuery.IsEmpty)
+            {
+                NativeArray<Entity> entityArray = _levelLockedQuery.ToEntityArray(Allocator.Temp);
+                Mod.Instance.Log.Info($"Found {_levelLockedQuery.CalculateEntityCount()} existing buildings with legacy level locked tag.");
+
+                foreach (Entity entity in entityArray)
+                {
+                    MakeHistorical(entity);
+                    EntityManager.RemoveComponent<LevelLocked>(entity);
+                }
+            }
         }
 
         /// <summary>
@@ -129,6 +161,28 @@ namespace PlopTheGrowables
         {
             Instance = null;
             base.OnDestroy();
+        }
+
+        /// <summary>
+        /// Marks the given building as historical, which has the effect of level-locking it and preventing it from being automatically upgraded by the game.
+        /// </summary>
+        /// <param name="entity">Building entity to make historical.</param>
+        private void MakeHistorical(Entity entity)
+        {
+            Building building = EntityManager.GetComponentData<Building>(entity);
+            building.m_Flags |= Game.Buildings.BuildingFlags.Historical;
+            EntityManager.SetComponentData(entity, building);
+        }
+
+        /// <summary>
+        /// Removes historical status from the given building.
+        /// </summary>
+        /// <param name="entity">Building entity to remove historical status from.</param>
+        private void RemoveHistorical(Entity entity)
+        {
+            Building building = EntityManager.GetComponentData<Building>(entity);
+            building.m_Flags &= ~Game.Buildings.BuildingFlags.Historical;
+            EntityManager.SetComponentData(entity, building);
         }
     }
 }

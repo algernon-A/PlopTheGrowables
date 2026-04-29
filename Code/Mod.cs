@@ -57,9 +57,6 @@ namespace PlopTheGrowables
 #endif
             Log.Info($"loading {ModName} version {Assembly.GetExecutingAssembly().GetName().Version}");
 
-            // Apply harmony patches.
-            new Patcher("algernon-PlopTheGrowables", Log);
-
             // Activate UI system.
             updateSystem.UpdateAt<PlopTheGrowablesUISystem>(SystemUpdatePhase.UIUpdate);
 
@@ -76,9 +73,6 @@ namespace PlopTheGrowables
             // Disable game zone check system.
             updateSystem.World.GetOrCreateSystemManaged<ZoneCheckSystem>().Enabled = false;
 
-            // Activate custom levelling system, running immediately after the system where levelling is normally handled.
-            updateSystem.UpdateAfter<HistoricalLevellingSystem, BuildingUpkeepSystem>(SystemUpdatePhase.GameSimulation);
-
             // Activate tagging systems.
             updateSystem.UpdateAfter<ExistingBuildingSystem>(SystemUpdatePhase.Deserialize);
             updateSystem.UpdateAfter<SpawnedBuildingSystem, BuildingConstructionSystem>(SystemUpdatePhase.GameSimulation);
@@ -86,16 +80,6 @@ namespace PlopTheGrowables
 
             // Activate custom zone check system; must run after we've assigned ploppable flags.
             updateSystem.UpdateAfter<SelectiveZoneCheckSystem, PloppedBuildingSystem>(SystemUpdatePhase.ModificationEnd);
-
-            // Check for Realistic Workplaces and Households mod.
-            foreach (ModManager.ModInfo modInfo in GameManager.instance.modManager)
-            {
-                if (modInfo.asset.name.Equals("RWH"))
-                {
-                    Log.Info("Found Realistic Workplaces and Housholds mod; deactivating game workplace check in building level up job.");
-                    updateSystem.World.GetOrCreateSystemManaged<HistoricalLevellingSystem>().IgnoreHouseholdCount = true;
-                }
-            }
         }
 
         /// <summary>
@@ -107,14 +91,11 @@ namespace PlopTheGrowables
             Instance = null;
 
             // Clear settings menu entry.
-            if (ActiveSettings != null)
+            if (ActiveSettings is not null)
             {
                 ActiveSettings.UnregisterInOptionsUI();
                 ActiveSettings = null;
             }
-
-            // Revert harmony patches.
-            Patcher.Instance?.UnPatchAll();
         }
     }
 }

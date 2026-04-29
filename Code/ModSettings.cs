@@ -16,20 +16,19 @@ namespace PlopTheGrowables
     /// The mod's settings.
     /// </summary>
     [FileLocation(Mod.ModName)]
-    [SettingsUIShowGroupName(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
-    [SettingsUITabOrder(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
-    [SettingsUIGroupOrder(SpawnedBuildings, Locking, ApplyToExisting, DisableAll)]
+    [SettingsUIShowGroupName(SpawnedBuildings, Historical, ApplyToExisting, DisableAll)]
+    [SettingsUITabOrder(SpawnedBuildings, Historical, ApplyToExisting, DisableAll)]
+    [SettingsUIGroupOrder(SpawnedBuildings, Historical, ApplyToExisting, DisableAll)]
     public class ModSettings : ModSetting
     {
         // String constants for categories.
         private const string SpawnedBuildings = "SpawnedBuildings";
-        private const string Locking = "Locking";
+        private const string Historical = "Historical";
         private const string ApplyToExisting = "ApplyToExisting";
         private const string DisableAll = "DisableAll";
+        private const string MakePloppedHistorical = "MakePloppedHistorical";
 
         // Backing fields.
-        private bool _disableLevelling = false;
-        private bool _disableAbandonment = false;
         private bool _lockPloppedBuildings = false;
         private bool _spawnedZoneDespawn = false;
 
@@ -65,7 +64,9 @@ namespace PlopTheGrowables
         /// <summary>
         /// Gets or sets a value indicating whether plopped buildings should be automatically level-locked on placement.
         /// </summary>
-        [SettingsUISection(Locking)]
+        [SettingsUISection(Historical)]
+        [SettingsUIDisplayName(overrideId: MakePloppedHistorical)]
+        [SettingsUIDescription(overrideId: MakePloppedHistorical)]
         public bool LockPloppedBuildings
         {
             get => _lockPloppedBuildings;
@@ -83,52 +84,12 @@ namespace PlopTheGrowables
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether building abandonment should be disabled.
-        /// </summary>
-        [SettingsUISection(Locking)]
-        public bool NoAbandonment
-        {
-            get => _disableAbandonment;
-
-            set
-            {
-                _disableAbandonment = value;
-
-                // Update system, if it's ready.
-                if (HistoricalLevellingSystem.Instance is HistoricalLevellingSystem historicalLevellingSystem)
-                {
-                    historicalLevellingSystem.DisableAbandonment = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether building levelling should be disabled.
-        /// </summary>
-        [SettingsUISection(Locking)]
-        public bool DisableLevelling
-        {
-            get => _disableLevelling;
-
-            set
-            {
-                _disableLevelling = value;
-
-                // Update system, if it's ready.
-                if (HistoricalLevellingSystem.Instance is HistoricalLevellingSystem historicalLevellingSystem)
-                {
-                    historicalLevellingSystem.DisableLevelling = value;
-                }
-            }
-        }
-
-        /// <summary>
         /// Sets a value indicating whether all eligible buildings should be level-locked.
         /// </summary>
         [SettingsUIButton]
         [SettingsUISection(ApplyToExisting)]
         [SettingsUIDisableByCondition(typeof(ModSettings), nameof(IsNotInGame))]
-        public bool LockAllBuildings
+        public bool AllBuildingsHistorical
         {
             set
             {
@@ -142,7 +103,7 @@ namespace PlopTheGrowables
         [SettingsUIButton]
         [SettingsUISection(ApplyToExisting)]
         [SettingsUIDisableByCondition(typeof(ModSettings), nameof(IsNotInGame))]
-        public bool UnlockAllBuildings
+        public bool RemoveAllHistorical
         {
             set
             {
@@ -170,7 +131,8 @@ namespace PlopTheGrowables
         /// </summary>
         public override void SetDefaults()
         {
-            _disableLevelling = false;
+            _lockPloppedBuildings = false;
+            _spawnedZoneDespawn = false;
         }
 
         /// <summary>

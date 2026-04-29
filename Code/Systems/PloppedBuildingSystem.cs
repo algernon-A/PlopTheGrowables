@@ -12,6 +12,7 @@ namespace PlopTheGrowables
     using Game.Common;
     using Game.Objects;
     using Game.Tools;
+    using Unity.Collections;
     using Unity.Entities;
 
     /// <summary>
@@ -20,8 +21,7 @@ namespace PlopTheGrowables
     public partial class PloppedBuildingSystem : GameSystemBase
     {
         // Component typesets (for adding components).
-        private readonly ComponentTypeSet _ploppedOnly = new (typeof(PloppedBuilding));
-        private readonly ComponentTypeSet _lockedAndPlopped = new (typeof(LevelLocked), typeof(PloppedBuilding));
+        private readonly ComponentTypeSet _ploppedBuilding = new (typeof(PloppedBuilding));
 
         // References.
         private EntityQuery _emptyQuery;
@@ -65,7 +65,20 @@ namespace PlopTheGrowables
         protected override void OnUpdate()
         {
             // Tag any newly-plopped buildings as plopped, and level-lock them if that setting is set.
-            EntityManager.AddComponent(_emptyQuery, LockPloppedBuildings ? _lockedAndPlopped : _ploppedOnly);
+            EntityManager.AddComponent(_emptyQuery, _ploppedBuilding);
+
+            // Apply historical status to any newly-plopped buildings, if that's what we're doing.
+            if (LockPloppedBuildings)
+            {
+                NativeArray<Entity> entityArray = _emptyQuery.ToEntityArray(Allocator.Temp);
+
+                foreach (Entity entity in entityArray)
+                {
+                    Building building = EntityManager.GetComponentData<Building>(entity);
+                    building.m_Flags |= BuildingFlags.Historical;
+                    EntityManager.SetComponentData(entity, building);
+                }
+            }
         }
     }
 }
