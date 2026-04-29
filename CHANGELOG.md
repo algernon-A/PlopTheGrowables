@@ -1,7 +1,7 @@
 ### 1.0
 - Updates for game version 1.5.7.
 - Convert level locking to game's new historical status and remove custom UI toggle.
-- Remove custom levelling system, jobs, and Harmony patching.
+- Remove custom leveling system, jobs, and Harmony patching.
 
 ### 0.8.7
 - Add levelling system household check toggle for compatibility with Realistic Workplaces and Households mod.
