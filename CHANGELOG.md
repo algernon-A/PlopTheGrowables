@@ -1,3 +1,6 @@
+### 1.0.0.1
+- Fix assigning historical status to plopped buildings sometimes not working.
+
 ### 1.0
 - Updates for game version 1.5.7.
 - Convert level locking to game's new historical status and remove custom UI toggle.

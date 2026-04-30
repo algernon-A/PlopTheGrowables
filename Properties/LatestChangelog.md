@@ -1,3 +1,1 @@
-- Updates for game version 1.5.7.
-- Convert level locking to game's new historical status and remove custom UI toggle.
-- Remove custom levelling system, jobs, and Harmony patching.
+- Fix assigning historical status to plopped buildings sometimes not working.
