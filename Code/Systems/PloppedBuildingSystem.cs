@@ -64,9 +64,6 @@ namespace PlopTheGrowables
         /// </summary>
         protected override void OnUpdate()
         {
-            // Tag any newly-plopped buildings as plopped, and level-lock them if that setting is set.
-            EntityManager.AddComponent(_emptyQuery, _ploppedBuilding);
-
             // Apply historical status to any newly-plopped buildings, if that's what we're doing.
             if (LockPloppedBuildings)
             {
@@ -79,6 +76,9 @@ namespace PlopTheGrowables
                     EntityManager.SetComponentData(entity, building);
                 }
             }
+
+            // Tag any newly-plopped buildings as plopped.
+            EntityManager.AddComponent(_emptyQuery, _ploppedBuilding);
         }
     }
 }
