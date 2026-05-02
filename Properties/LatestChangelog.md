@@ -1,1 +1,1 @@
-- Fix assigning historical status to plopped buildings sometimes not working.
+- Reset building levelling progress when applying historical status.

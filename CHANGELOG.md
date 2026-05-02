@@ -1,3 +1,6 @@
+### 1.0.1
+- Reset building levelling progress when applying historical status.
+
 ### 1.0.0.1
 - Fix assigning historical status to plopped buildings sometimes not working.
 
