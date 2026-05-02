@@ -9,9 +9,11 @@ namespace PlopTheGrowables
     using Colossal.Entities;
     using Game;
     using Game.Buildings;
+    using Game.City;
     using Game.Common;
     using Game.Notifications;
     using Game.Prefabs;
+    using Game.Simulation;
     using Unity.Collections;
     using Unity.Entities;
 
@@ -171,7 +173,10 @@ namespace PlopTheGrowables
         {
             Building building = EntityManager.GetComponentData<Building>(entity);
             building.m_Flags |= Game.Buildings.BuildingFlags.Historical;
+            BuildingCondition buildingCondition = EntityManager.GetComponentData<BuildingCondition>(entity);
+            buildingCondition.m_Condition = 0;
             EntityManager.SetComponentData(entity, building);
+            EntityManager.SetComponentData(entity, buildingCondition);
         }
 
         /// <summary>
