@@ -1,5 +1,5 @@
 ### 1.0.1
-- Reset building levelling progress when applying historical status.
+- Reset building leveling progress when applying historical status.
 
 ### 1.0.0.1
 - Fix assigning historical status to plopped buildings sometimes not working.
@@ -10,14 +10,14 @@
 - Remove custom leveling system, jobs, and Harmony patching.
 
 ### 0.8.7
-- Add levelling system household check toggle for compatibility with Realistic Workplaces and Households mod.
+- Add leveling system household check toggle for compatibility with Realistic Workplaces and Households mod.
 
 ### 0.8.6
 - Update UI dependency versions to match game version 1.5.2.
-- Re-enable burst compilation of building levelling code for game version 1.5.2.
+- Re-enable burst compilation of building leveling code for game version 1.5.2.
 
 ### 0.8.5.1
-- Temporarily disable burst compilation of building levelling code as potential workaround for crashes with some old saves in 1.4.2.
+- Temporarily disable burst compilation of building leveling code as potential workaround for crashes with some old saves in 1.4.2.
 
 ### 0.8.5
 - Compatibility with game version 1.3.6.
@@ -73,4 +73,4 @@
 - Downgrade Harmony to 2.2.2 to keep TDW happy.
 
 ### 0.2
-- Add option to disable building levelling.
+- Add option to disable building leveling.
