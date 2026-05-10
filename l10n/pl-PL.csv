@@ -2,15 +2,15 @@
 "Options.GROUP:SpawnedBuildings","Budynki nieumieszczone przez gracza"
 "Options.OPTION:SpawnedZoneDespawn","Budynki nieumieszczone przez gracza wymagają stref"
 "Options.OPTION_DESCRIPTION:SpawnedZoneDespawn","Jeśli wybrane, budynki nieumieszczone przez gracza (naturalnie wygenerowane) będą wymagać stref do normalnego funkcjonowania. Jeżeli strefy zostaną usunięte lub zmienione, wszystkie nieumieszczone przez gracza budynki zostaną przeznaczone do rozbiórki."
-"Options.GROUP:Historical","Nadaj status zabytku"
-"Options.OPTION[MakePloppedHistorical]","Nadaj status zabytku budynkom po umieszczeniu"
-"Options.OPTION_DESCRIPTION[MakePloppedHistorical]","Jeśli to ustawienie jest aktywne, to automatycznie nada status zabytku każdemu umieszczonemu ręcznie budynkowi (plopped)."
+"Options.GROUP:Historical","Nadaj status Budynku Historycznego"
+"Options.OPTION[MakePloppedHistorical]","Nadaj status Budynku Historycznego budynkom po umieszczeniu"
+"Options.OPTION_DESCRIPTION[MakePloppedHistorical]","Jeśli to ustawienie jest aktywne, to automatycznie nada status Budynku Historycznego każdemu umieszczonemu ręcznie budynkowi (plopped)."
 "Options.GROUP:ApplyToExisting","Zastosuj do istniejących budynków"
-"Options.OPTION:AllBuildingsHistorical","Nadaj status zabytku wszystkim istniejącym budynkom"
-"Options.OPTION_DESCRIPTION:AllBuildingsHistorical","Natychmiastowo nadaj status zabytku wszystkim istniejącym budynkom. 
+"Options.OPTION:AllBuildingsHistorical","Nadaj status Budynku Historycznego wszystkim istniejącym budynkom"
+"Options.OPTION_DESCRIPTION:AllBuildingsHistorical","Natychmiastowo nadaj status Budynku Historycznego wszystkim istniejącym budynkom. 
 NIE ma to wpływu na budynki postawione lub wygenerowane po kliknięciu tego przycisku."
-"Options.OPTION:RemoveAllHistorical","Zabierz status zabytku wszystkim istniejącym budynkom"
-"Options.OPTION_DESCRIPTION:RemoveAllHistorical","Natychmiastowo pozbawi statusu zabytku wszystkim istniejącym budynkom. 
+"Options.OPTION:RemoveAllHistorical","Zabierz status Budynku Historycznego wszystkim istniejącym budynkom"
+"Options.OPTION_DESCRIPTION:RemoveAllHistorical","Natychmiastowo pozbawi statusu Budynku Historycznego wszystkim istniejącym budynkom. 
 NIE ma to wpływu na budynki postawione lub wygenerowane po kliknięciu tego przycisku."
 "Options.OPTION:RemoveAllAbandonment","Usuń porzucenie z wszystkich istniejących budynków"
 "Options.OPTION_DESCRIPTION:RemoveAllAbandonment","Natychmiast usuń porzucenie z wszystkich istniejących budynków. 
