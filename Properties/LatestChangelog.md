@@ -1,1 +1,1 @@
-- Reset building levelling progress when applying historical status.
+- Add additional validation checks when adding or removing historical status.

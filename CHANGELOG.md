@@ -1,3 +1,6 @@
+### 1.0.2
+- Add additional validation checks when adding or removing historical status.
+
 ### 1.0.1
 - Reset building leveling progress when applying historical status.
 
