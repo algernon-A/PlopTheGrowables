@@ -9,11 +9,9 @@ namespace PlopTheGrowables
     using Colossal.Entities;
     using Game;
     using Game.Buildings;
-    using Game.City;
     using Game.Common;
     using Game.Notifications;
     using Game.Prefabs;
-    using Game.Simulation;
     using Unity.Collections;
     using Unity.Entities;
 
@@ -171,12 +169,17 @@ namespace PlopTheGrowables
         /// <param name="entity">Building entity to make historical.</param>
         private void MakeHistorical(Entity entity)
         {
-            Building building = EntityManager.GetComponentData<Building>(entity);
-            building.m_Flags |= Game.Buildings.BuildingFlags.Historical;
-            BuildingCondition buildingCondition = EntityManager.GetComponentData<BuildingCondition>(entity);
-            buildingCondition.m_Condition = 0;
-            EntityManager.SetComponentData(entity, building);
-            EntityManager.SetComponentData(entity, buildingCondition);
+            if (EntityManager.TryGetComponent(entity, out Building building))
+            {
+                building.m_Flags |= Game.Buildings.BuildingFlags.Historical;
+                EntityManager.SetComponentData(entity, building);
+            }
+
+            if (EntityManager.TryGetComponent<BuildingCondition>(entity, out BuildingCondition buildingCondition))
+            {
+                buildingCondition.m_Condition = 0;
+                EntityManager.SetComponentData(entity, buildingCondition);
+            }
         }
 
         /// <summary>
