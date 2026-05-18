@@ -1,1 +1,1 @@
-- Add additional validation checks when adding or removing historical status.
+- Add check to remove in-progress upgrading from historical buildings when loading an existing save.

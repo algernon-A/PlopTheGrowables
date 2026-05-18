@@ -1,3 +1,6 @@
+### 1.0.3
+- Add check to remove in-progress upgrading from historical buildings when loading an existing save.
+
 ### 1.0.2
 - Add additional validation checks when adding or removing historical status.
 
