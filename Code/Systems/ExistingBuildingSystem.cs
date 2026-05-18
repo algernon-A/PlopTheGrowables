@@ -15,6 +15,8 @@ namespace PlopTheGrowables
     using Unity.Collections;
     using Unity.Entities;
 
+    using BuildingFlags = Game.Buildings.BuildingFlags;
+
     /// <summary>
     /// System to identify any existing and unclassified buildings (not tagged as either spawned or plopped) on save load.
     /// The default is to classify them as spawned (for safety).
@@ -27,6 +29,7 @@ namespace PlopTheGrowables
         private EntityQuery _untaggedQuery;
         private EntityQuery _levelLockedQuery;
         private EntityQuery _buildingConfigurationQuery;
+        private EntityQuery _buildingSettingsQuery;
 
         /// <summary>
         /// Gets the active instance.
@@ -121,8 +124,9 @@ namespace PlopTheGrowables
             _untaggedQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithNone<Signature, PloppedBuilding, SpawnedBuilding>().Build();
             _levelLockedQuery = SystemAPI.QueryBuilder().WithAll<Building>().WithAny<ResidentialProperty, IndustrialProperty, CommercialProperty>().WithAll<LevelLocked>().Build();
             _buildingConfigurationQuery = GetEntityQuery(ComponentType.ReadOnly<BuildingConfigurationData>());
+            _buildingSettingsQuery = GetEntityQuery(ComponentType.ReadOnly<BuildingConfigurationData>(), ComponentType.ReadOnly<ZoneLevelUpResourceData>());
 
-            RequireAnyForUpdate(_untaggedQuery, _levelLockedQuery);
+            RequireAnyForUpdate(_untaggedQuery, _levelLockedQuery, _allBuildingsQuery);
         }
 
         /// <summary>
@@ -152,6 +156,19 @@ namespace PlopTheGrowables
                     EntityManager.RemoveComponent<LevelLocked>(entity);
                 }
             }
+
+            // Clear any upgrades from existing historical buildings, to prevent any in-progress upgrades from being applied after loading.
+            if (!_allBuildingsQuery.IsEmpty)
+            {
+                NativeArray<Entity> entityArray = _allBuildingsQuery.ToEntityArray(Allocator.Temp);
+                foreach (Entity entity in entityArray)
+                {
+                    if (EntityManager.TryGetComponent(entity, out Building building) && (building.m_Flags & BuildingFlags.Historical) != 0)
+                    {
+                        ClearBuildingUpgrade(entity);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -169,17 +186,22 @@ namespace PlopTheGrowables
         /// <param name="entity">Building entity to make historical.</param>
         private void MakeHistorical(Entity entity)
         {
+            // Set building historical flag.
             if (EntityManager.TryGetComponent(entity, out Building building))
             {
-                building.m_Flags |= Game.Buildings.BuildingFlags.Historical;
+                building.m_Flags |= BuildingFlags.Historical;
                 EntityManager.SetComponentData(entity, building);
             }
 
+            // Reset building condition.
             if (EntityManager.TryGetComponent<BuildingCondition>(entity, out BuildingCondition buildingCondition))
             {
                 buildingCondition.m_Condition = 0;
                 EntityManager.SetComponentData(entity, buildingCondition);
             }
+
+            // Reset building status.
+            ClearBuildingUpgrade(entity);
         }
 
         /// <summary>
@@ -189,8 +211,33 @@ namespace PlopTheGrowables
         private void RemoveHistorical(Entity entity)
         {
             Building building = EntityManager.GetComponentData<Building>(entity);
-            building.m_Flags &= ~Game.Buildings.BuildingFlags.Historical;
+            building.m_Flags &= ~BuildingFlags.Historical;
             EntityManager.SetComponentData(entity, building);
+        }
+
+        /// <summary>
+        /// Removes any building upgrading currently in progress.
+        /// </summary>
+        /// <param name="entity">Building entity to clear upgrade data for.</param>
+        private void ClearBuildingUpgrade(Entity entity)
+        {
+            // Remove any upgrade resource requirements.
+            if (EntityManager.TryGetBuffer<ResourceNeeding>(entity, false, out DynamicBuffer<ResourceNeeding> resourceNeedingBuffer))
+            {
+                EntityManager.RemoveComponent<ResourceNeeding>(entity);
+            }
+
+            // Remove any building upgrade elements.
+            if (EntityManager.TryGetBuffer<BuildingUpgradeElement>(entity, false, out DynamicBuffer<BuildingUpgradeElement> buildingUpgradeBuffer))
+            {
+                EntityManager.RemoveComponent<BuildingUpgradeElement>(entity);
+            }
+
+            // Remove level-up notification if present.
+            BuildingConfigurationData buildingConfigurationData = _buildingSettingsQuery.GetSingleton<BuildingConfigurationData>();
+            IconCommandSystem iconCommandSystem = World.GetOrCreateSystemManaged<IconCommandSystem>();
+            IconCommandBuffer iconCommandBuffer = iconCommandSystem.CreateCommandBuffer();
+            iconCommandBuffer.Remove(entity, buildingConfigurationData.m_LevelingBuildingNotificationPrefab);
         }
     }
 }
